@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2a09b1e8-537d-4d20-9585-02f068f110f3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_dragon_sdk_dragon_sdk_service_1_0_SNAPSHOT.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clover-common-web-demo/dragon-sdk-web.iml" beforeDir="false" afterPath="$PROJECT_DIR$/clover-common-web-demo/dragon-sdk-web.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clover-common-web-demo/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/clover-common-web-demo/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clover-common-jwt-web/src/main/resources/config/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/clover-common-jwt-web/src/main/resources/config/application-dev.properties" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/clover-common-web-demo/target/" />
@@ -33,8 +31,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="499">
-              <caret line="271" selection-start-line="271" selection-end-line="271" />
+            <state relative-caret-position="275">
+              <caret line="271" lean-forward="true" selection-start-line="271" selection-end-line="271" />
               <folding>
                 <element signature="n#pluginRepositories#0;n#project#0;n#!!top" />
               </folding>
@@ -47,11 +45,20 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/clover-common-web-demo/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="39" column="25" selection-start-line="35" selection-start-column="12" selection-end-line="39" selection-end-column="25" />
+            <state relative-caret-position="307">
+              <caret line="50" column="36" selection-start-line="50" selection-start-column="36" selection-end-line="50" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/clover-common-jwt-web/src/main/resources/config/application-dev.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="15" column="57" selection-start-line="15" selection-start-column="57" selection-end-line="15" selection-end-column="57" />
             </state>
           </provider>
         </entry>
@@ -81,7 +88,6 @@
         <option value="$PROJECT_DIR$/clover-common-utils/src/main/java/com/clover/common/base/BusinessException.java" />
         <option value="$PROJECT_DIR$/clover-common-web-demo/src/main/java/com/clover/common/SpringbootApplication.java" />
         <option value="$PROJECT_DIR$/clover-common-service/src/main/java/com/clover/common/service/impl/AdminServiceImpl.java" />
-        <option value="$PROJECT_DIR$/clover-common-jwt-web/src/main/resources/config/application-dev.properties" />
         <option value="$PROJECT_DIR$/clover-common-web-demo/src/main/java/com/clover/common/componment/CronWork.java" />
         <option value="$PROJECT_DIR$/clover-common-utils/src/main/java/com/clover/common/util/BeanUtils.java" />
         <option value="$PROJECT_DIR$/clover-common-persistence/pom.xml" />
@@ -94,8 +100,9 @@
         <option value="$PROJECT_DIR$/clover-common-utils/pom.xml" />
         <option value="$PROJECT_DIR$/clover-common-web-demo/src/main/java/com/clover/common/CloverCommonSpringbootApplication.java" />
         <option value="$PROJECT_DIR$/clover-common-jwt-web/pom.xml" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/clover-common-web-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/clover-common-jwt-web/src/main/resources/config/application-dev.properties" />
       </list>
     </option>
   </component>
@@ -149,6 +156,49 @@
             <path>
               <item name="clover-common-parent" type="b2602c69:ProjectViewProjectNode" />
               <item name="clover-common-componment-parent" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="clover-common-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="clover-common-componment-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="clover-common-jwt-web" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="clover-common-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="clover-common-componment-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="clover-common-jwt-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="clover-common-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="clover-common-componment-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="clover-common-jwt-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="clover-common-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="clover-common-componment-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="clover-common-jwt-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="clover-common-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="clover-common-componment-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="clover-common-jwt-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="clover-common-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="clover-common-componment-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="clover-common-jwt-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="clover-common-parent" type="b2602c69:ProjectViewProjectNode" />
@@ -284,7 +334,7 @@
       <workItem from="1559696399683" duration="576000" />
       <workItem from="1560236488043" duration="710000" />
       <workItem from="1560412798611" duration="85000" />
-      <workItem from="1560413885128" duration="1520000" />
+      <workItem from="1560413885128" duration="1952000" />
     </task>
     <task id="LOCAL-00001" summary="Dimo's first modify">
       <created>1560415337350</created>
@@ -293,17 +343,31 @@
       <option name="project" value="LOCAL" />
       <updated>1560415337350</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Dimo's first modify">
+      <created>1560415703030</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1560415703030</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Dimo's first modify">
+      <created>1560415825827</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1560415825827</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26902000" />
+    <option name="totallyTimeSpent" value="27334000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24463807" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24463807" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -327,7 +391,7 @@
       <window_info anchor="bottom" id="Statistic" order="12" weight="0.3292232" />
       <window_info anchor="bottom" id="Tail" order="13" />
       <window_info anchor="bottom" id="Java Enterprise" order="14" weight="0.3292232" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="15" visible="true" weight="0.32844576" />
+      <window_info anchor="bottom" id="Version Control" order="15" visible="true" weight="0.32844576" />
       <window_info anchor="bottom" id="Terminal" order="16" />
       <window_info anchor="bottom" id="Messages" order="17" weight="0.3292232" />
       <window_info anchor="bottom" id="Inspection Results" order="18" weight="0.3292232" />
@@ -638,13 +702,6 @@
     <entry file="file://$PROJECT_DIR$/clover-common-jwt-web/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/clover-common-jwt-web/src/main/resources/config/application-dev.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-134">
-          <caret line="43" column="36" selection-start-line="43" selection-start-column="36" selection-end-line="43" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/clover-common-persistence/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="354">
@@ -680,8 +737,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="499">
-          <caret line="271" selection-start-line="271" selection-end-line="271" />
+        <state relative-caret-position="275">
+          <caret line="271" lean-forward="true" selection-start-line="271" selection-end-line="271" />
           <folding>
             <element signature="n#pluginRepositories#0;n#project#0;n#!!top" />
           </folding>
@@ -693,8 +750,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/clover-common-web-demo/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="39" column="25" selection-start-line="35" selection-start-column="12" selection-end-line="39" selection-end-column="25" />
+        <state relative-caret-position="307">
+          <caret line="50" column="36" selection-start-line="50" selection-start-column="36" selection-end-line="50" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clover-common-jwt-web/src/main/resources/config/application-dev.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="57" selection-start-line="15" selection-start-column="57" selection-end-line="15" selection-end-column="57" />
         </state>
       </provider>
     </entry>
