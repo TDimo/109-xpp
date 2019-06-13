@@ -7,7 +7,6 @@
       <module fileurl="file://$PROJECT_DIR$/clover-common-persistence/clover-common-persistence.iml" filepath="$PROJECT_DIR$/clover-common-persistence/clover-common-persistence.iml" />
       <module fileurl="file://$PROJECT_DIR$/clover-common-service/clover-common-service.iml" filepath="$PROJECT_DIR$/clover-common-service/clover-common-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/clover-common-utils/clover-common-utils.iml" filepath="$PROJECT_DIR$/clover-common-utils/clover-common-utils.iml" />
-      <module fileurl="file://$PROJECT_DIR$/clover-common-web-demo/dragon-sdk-web.iml" filepath="$PROJECT_DIR$/clover-common-web-demo/dragon-sdk-web.iml" />
     </modules>
   </component>
 </project>
