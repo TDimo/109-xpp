@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 用户表
+ * 前台用户表
  * </p>
  *
  * @author Dimo
