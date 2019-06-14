@@ -27,7 +27,7 @@ public class User extends Model<User> {
 
     private static final long serialVersionUID = 1L;
     /**
-     * 用户表的主键为ID
+     * 用户表的主键为id
      */
     @TableId("id")
     private long userId;
