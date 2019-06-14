@@ -12,6 +12,9 @@ import java.io.Serializable;
  * <p>
  * 资讯表
  * </p>
+ *
+ * @author gyj
+ *
  */
 @Builder
 @Getter
@@ -24,7 +27,7 @@ public class Information extends Model<Information> {
 
     private static final long serialVersionUID = 1L;
     /**
-     * 用户主键id
+     * 主键id
      */
     @TableId("id")
     private Integer id;
