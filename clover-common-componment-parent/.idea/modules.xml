@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/clover-common-jwt-web/clover-common-jwt-web.iml" filepath="$PROJECT_DIR$/clover-common-jwt-web/clover-common-jwt-web.iml" />
       <module fileurl="file://$PROJECT_DIR$/clover-common-parent.iml" filepath="$PROJECT_DIR$/clover-common-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/clover-common-parent.iml" filepath="$PROJECT_DIR$/clover-common-parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/clover-common-persistence/clover-common-persistence.iml" filepath="$PROJECT_DIR$/clover-common-persistence/clover-common-persistence.iml" />
       <module fileurl="file://$PROJECT_DIR$/clover-common-service/clover-common-service.iml" filepath="$PROJECT_DIR$/clover-common-service/clover-common-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/clover-common-utils/clover-common-utils.iml" filepath="$PROJECT_DIR$/clover-common-utils/clover-common-utils.iml" />
