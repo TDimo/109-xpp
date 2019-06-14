@@ -13,8 +13,8 @@ import java.io.Serializable;
  * 用户表
  * </p>
  *
- * @author dingpengfei
- * @since 2019-05-09
+ * @author wyjzq
+ * @since 2019-6-14
  */
 @Builder
 @Getter
@@ -22,15 +22,15 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@TableName("sdk_back_admin")
+@TableName("manager_user")
 public class Admin extends Model<Admin> {
 
     private static final long serialVersionUID = 1L;
     /**
      * 用户主键
      */
-    @TableId("user_no")
-    private String userNo;
+    @TableId("id")
+    private Long userNo;
     /**
      * 是电话号码，也是账号（登录用）
      */
@@ -38,41 +38,68 @@ public class Admin extends Model<Admin> {
     /**
      * 姓名
      */
-    @TableField("user_name")
+    @TableField("name")
     private String username;
     /**
      * 密码
      */
-    @TableField("pass_word")
     private String password;
     /**
-     * 单位
+     * 性别
      */
-    private String unit;
+    private Integer sex;
+    /**
+     * 邮箱
+     */
+    private String email;
+
+    /**
+     * 角色ID
+     */
+    @TableField("role_id")
+    private Long roleid;
+
+    /**
+     * 备注
+     */
+    @TableField("rermark")
+    private String userrermark;
+    /**
+     * 创建人
+     */
+    @TableField("create_by")
+    private Long usercreateby;
+
     /**
      * 创建时间
      */
     @TableField("create_time")
-    private Long createTime;
+    private Long usercreatetime;
+
     /**
-     * 头像
+     * 更新人
      */
-    private String avatar;
+    @TableField("update_by")
+    private Long userupdateby;
+
     /**
-     * 状态值（1：启用，2：禁用，3：删除）
+     * 更新时间
      */
+    @TableField("update_time")
+    private Long userupdatetime;
+
+    /**
+     * 状态值（0：删除，1：未删除）
+     */
+    @TableField("del_flag")
     private Integer status;
-    /**
-     * 职位
-     */
-    private String job;
 
 
     @TableField(exist = false)
     private String token;
 
-    @TableField(exist = false)
-    private String roleName;
+//    @TableField(exist = false)
+//    private String roleName;
 
 
     @Override
