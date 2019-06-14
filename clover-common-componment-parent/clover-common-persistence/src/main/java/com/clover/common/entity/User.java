@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 用户表
+ * 前台用户表
  * </p>
  *
  * @author Dimo
@@ -27,7 +27,7 @@ public class User extends Model<User> {
 
     private static final long serialVersionUID = 1L;
     /**
-     * 用户表的主键为ID
+     * 用户表的主键为id
      */
     @TableId("id")
     private long userId;
