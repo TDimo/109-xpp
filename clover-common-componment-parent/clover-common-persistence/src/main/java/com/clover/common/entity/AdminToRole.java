@@ -32,20 +32,31 @@ public class AdminToRole extends Model<AdminToRole> {
      * 主键
      */
     @TableId(value = "user_to_role_id", type = IdType.AUTO)
-    private Integer userToRoleId;
+    private Integer id;
+    /**
+     * 角色ID
+     */
+    @TableField("role_id")
+    private Integer roleId;
+
+    /**
+     * 权限ID
+     */
+    @TableField("auth_id")
+    private  Integer authId;
     /**
      * 用户编号
      */
-    @TableField("user_no")
+    @TableField(exist = false)
     private String userNo;
     /**
      * 角色代号
      */
-    @TableField("role_code")
+    @TableField(exist = false)
     private String roleCode;
 
     @Override
     protected Serializable pkVal() {
-        return this.userToRoleId;
+        return this.id;
     }
 }
