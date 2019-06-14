@@ -1,4 +1,4 @@
-package com.clover.common.entity;
+﻿package com.clover.common.entity;
 
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
@@ -23,7 +23,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@TableName("sdk_back_operation_log")
+@TableName("ddc_system_log")
 public class OperationLog extends Model<OperationLog> {
 
     private static final long serialVersionUID = 1L;
@@ -31,12 +31,12 @@ public class OperationLog extends Model<OperationLog> {
     /**
      * 主键
      */
-    @TableId(value = "operation_log_id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer operationLogId;
     /**
      * 日志描述
      */
-    @TableField("log_description")
+    @TableField("content")
     private String logDescription;
     /**
      * 方法参数
