@@ -10,11 +10,7 @@ import com.ddc.server.config.web.http.ResponsePageHelper;
 import com.ddc.server.config.web.http.ResponsePageModel;
 import com.ddc.server.entity.DDCAdmin;
 import com.ddc.server.entity.DDCAuth;
-import com.ddc.server.entity.DDCRole;
-import com.ddc.server.service.IDDCAdminService;
-import com.ddc.server.service.IDDCRoleService;
-import com.ddc.server.shiro.PasswordUtils;
-import com.ddc.server.util.StringUtil;
+import com.ddc.server.service.IDDCAuthService;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -31,19 +27,18 @@ import java.util.List;
  * @since 2019-05-09
  */
 @RestController
-@RequestMapping("/admin")
-public class AdminController {
+@RequestMapping("/auth")
+public class AuthController {
 
     @Resource
-    IDDCAdminService adminService;
-    @Resource
-    IDDCRoleService roleService;
+    IDDCAuthService authService;
+
     @RequestMapping("/list")
     @ResponseBody
-    public ResponsePageModel<DDCAdmin> list(@RequestParam(name = "page", required = false, defaultValue = "1") Integer pageNumber,
+    public ResponsePageModel<DDCAuth> list(@RequestParam(name = "page", required = false, defaultValue = "1") Integer pageNumber,
                                            @RequestParam(name = "limit", required = false, defaultValue = "10") Integer pageSize,
                                            String start, String end, String keywords) throws Exception {
-        Wrapper<DDCAdmin> wrapper = new EntityWrapper<>();
+        Wrapper<DDCAuth> wrapper = new EntityWrapper<>();
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
         if (!StringUtils.isEmpty(start)) {
             wrapper = wrapper.ge("create_time", simpleDateFormat.parse(start).getTime());
@@ -54,15 +49,9 @@ public class AdminController {
         if (!StringUtils.isEmpty(keywords)) {
             wrapper = wrapper.like("name", keywords);
         }
-        Page<DDCAdmin> adminPage=adminService.selectPage(new Page<>(pageNumber, pageSize),
-                wrapper);
-        if(!CollectionUtils.isEmpty(adminPage.getRecords())){
-            for(DDCAdmin admin:adminPage.getRecords()){
-                DDCRole role=roleService.selectById(admin.getRoleId());
-                admin.setRoleName(role==null?"无":role.getName());
-            }
-        }
-        ResponsePageModel<DDCAdmin> page = ResponsePageHelper.buildResponseModel(adminPage);
+        ResponsePageModel<DDCAuth> page = ResponsePageHelper.buildResponseModel(
+                authService.selectPage(new Page<>(pageNumber, pageSize),
+                        wrapper));
         return page;
     }
 
@@ -78,7 +67,7 @@ public class AdminController {
             }
         }
         if (!CollectionUtils.isEmpty(idArray)) {
-            adminService.deleteBatchIds(idArray);
+            authService.deleteBatchIds(idArray);
             return ResponseHelper.buildResponseModel("删除成功");
         } else {
             return new ResponseModel<String>(
@@ -91,29 +80,16 @@ public class AdminController {
 
     @RequestMapping("/updateOrAdd")
     @ResponseBody
-    public ResponseModel<String> updateOrAdd(@RequestBody DDCAdmin entity,
+    public ResponseModel<String> updateOrAdd(@RequestBody DDCAuth entity,
                                              @CurrentUser DDCAdmin admin) throws Exception {
         if (entity.getId() == null) {
             entity.setCreateBy(admin.getId());
             entity.setCreateTime(System.currentTimeMillis());
             entity.setDelFlag(0);
-            if(StringUtils.isEmpty(entity.getPassword())){
-                entity.setPassword("123456");
-
-            }
-            PasswordUtils.entryptPassword(entity);
-        }else {
-            if(StringUtils.isEmpty(entity.getPassword())){
-                DDCAdmin dbAdmin=adminService.selectById(entity.getId());
-                entity.setPassword(dbAdmin.getPassword());
-                entity.setSalt(dbAdmin.getSalt());
-            }else {
-                PasswordUtils.entryptPassword(entity);
-            }
         }
         entity.setUpdateBy(admin.getId());
         entity.setUpdateTime(System.currentTimeMillis());
-        adminService.insertOrUpdate(entity);
+        authService.insertOrUpdate(entity);
 
         return ResponseHelper.buildResponseModel("操作成功");
     }

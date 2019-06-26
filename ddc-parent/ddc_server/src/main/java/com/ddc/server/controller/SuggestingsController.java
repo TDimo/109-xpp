@@ -9,12 +9,15 @@ import com.ddc.server.config.web.http.ResponseModel;
 import com.ddc.server.config.web.http.ResponsePageHelper;
 import com.ddc.server.config.web.http.ResponsePageModel;
 import com.ddc.server.entity.DDCAdmin;
-import com.ddc.server.entity.DDCAuth;
-import com.ddc.server.entity.DDCRole;
-import com.ddc.server.service.IDDCRoleService;
+import com.ddc.server.entity.DdcSuggestings;
+import com.ddc.server.service.IDDCSuggestingsService;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
@@ -22,25 +25,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 前端控制器
+ * 登录接口
  *
  * @author dingpengfei
  * @since 2019-05-09
  */
-@RestController
-@RequestMapping("/role")
-public class RoleController {
-
+@RequestMapping("/suggestings")
+@Controller
+public class SuggestingsController {
     @Resource
-    IDDCRoleService roleService
-            ;
+    private IDDCSuggestingsService suggestingsService;
+
 
     @RequestMapping("/list")
     @ResponseBody
-    public ResponsePageModel<DDCRole> list(@RequestParam(name = "page", required = false, defaultValue = "1") Integer pageNumber,
-                                           @RequestParam(name = "limit", required = false, defaultValue = "10") Integer pageSize,
-                                           String start, String end, String keywords) throws Exception {
-        Wrapper<DDCRole> wrapper = new EntityWrapper<>();
+    public ResponsePageModel<DdcSuggestings> list(@RequestParam(name = "page", required = false, defaultValue = "1") Integer pageNumber,
+                                                  @RequestParam(name = "limit", required = false, defaultValue = "10") Integer pageSize,
+                                                  String start, String end, String keywords) throws Exception {
+        Wrapper<DdcSuggestings> wrapper = new EntityWrapper<>();
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
         if (!StringUtils.isEmpty(start)) {
             wrapper = wrapper.ge("create_time", simpleDateFormat.parse(start).getTime());
@@ -49,10 +51,10 @@ public class RoleController {
             wrapper = wrapper.le("create_time", simpleDateFormat.parse(end).getTime());
         }
         if (!StringUtils.isEmpty(keywords)) {
-            wrapper = wrapper.like("name", keywords);
+            wrapper = wrapper.like("username", keywords);
         }
-        ResponsePageModel<DDCRole> page = ResponsePageHelper.buildResponseModel(
-                roleService.selectPage(new Page<>(pageNumber, pageSize),
+        ResponsePageModel<DdcSuggestings> page = ResponsePageHelper.buildResponseModel(
+                suggestingsService.selectPage(new Page<>(pageNumber, pageSize),
                         wrapper));
         return page;
     }
@@ -69,7 +71,7 @@ public class RoleController {
             }
         }
         if (!CollectionUtils.isEmpty(idArray)) {
-            roleService.deleteBatchIds(idArray);
+            suggestingsService.deleteBatchIds(idArray);
             return ResponseHelper.buildResponseModel("删除成功");
         } else {
             return new ResponseModel<String>(
@@ -82,16 +84,16 @@ public class RoleController {
 
     @RequestMapping("/updateOrAdd")
     @ResponseBody
-    public ResponseModel<String> updateOrAdd(@RequestBody DDCRole entity,
+    public ResponseModel<String> updateOrAdd(@RequestBody  DdcSuggestings suggestings,
                                              @CurrentUser DDCAdmin admin) throws Exception {
-        if (entity.getId() == null) {
-            entity.setCreateBy(admin.getId());
-            entity.setCreateTime(System.currentTimeMillis());
-            entity.setDelFlag(0);
+        if(suggestings.getId()==null){
+            suggestings.setCreateBy(admin.getId());
+            suggestings.setCreateTime(System.currentTimeMillis());
+            suggestings.setDelFlag(0);
         }
-        entity.setUpdateBy(admin.getId());
-        entity.setUpdateTime(System.currentTimeMillis());
-        roleService.insertOrUpdate(entity);
+        suggestings.setUpdateBy(admin.getId());
+        suggestings.setUpdateTime(System.currentTimeMillis());
+        suggestingsService.insertOrUpdate(suggestings);
 
         return ResponseHelper.buildResponseModel("操作成功");
     }
