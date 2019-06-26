@@ -74,10 +74,28 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">下级权限ID</label>
+            <label class="layui-form-label">上级权限ID</label>
             <div class="layui-input-inline">
                 <input type="text" name="pId" value="{{ d.pId || '' }}" lay-verify="pId" placeholder="请输入下级权限ID"
                        autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">上级权限</label>
+            <div class="layui-input-block">
+                <select name="pId" lay-verify="required">
+                    <option value="0">无</option>
+                    {{# layui.each(d.data,function(index,item){}}
+                    <option value="{{item.id}}"
+                            {{# if(d.pId===item.id){ }}
+                            selected
+                            {{# } }}
+                    >
+                        {{item.name}}
+                    </option>
+                    {{# }); }}
+                </select>
             </div>
         </div>
 
@@ -170,16 +188,18 @@
                 , cols: [[ //表头
                     {type: 'checkbox', fixed: 'left'}
                     , {
-                        field: 'id', title: 'ID', width: '15%', sort: true, fixed: 'left', templet: function (d) {
+                        field: 'id', title: 'ID', width: '9%', sort: true, fixed: 'left', templet: function (d) {
                             return d.id;//long 转Stirng
                         }
                     }
                     ,
-                    {field: 'name', title: '权限名称', width: '10%'}
-                    , {field: 'flag', title: '权限标示', width: '15%'}
-                    , {field: 'pId', title: '上级权限ID', width: '15%'}
+                    {field: 'pName', title: '上级权限', width: '10%'},
+                    {field: 'menuUrl', title: '跳转地址', width: '10%'},
+                    {field: 'name', title: '权限名称', width: '15%'}
+                    , {field: 'flag', title: '权限标示', width: '10%'}
+                    , {field: 'pId', title: '上级权限ID', width: '9%'}
                     , {
-                        field: 'level', title: '权限级别', width: '15%'
+                        field: 'level', title: '权限级别', width: '10%'
                         , templet: function (d) {
                             switch (d.level) {
                                 case 1:
@@ -190,8 +210,21 @@
                                     return '操作';
                             }
                         }
+                    },
+                    {
+                        field: 'authLevel', title: '权限级别', width: '13%'
+                        , templet: function (d) {
+                            switch (d.authLevel) {
+                                case 1:
+                                    return '超级管理员权限';
+                                case 2:
+                                    return '管理员权限';
+                                case 3:
+                                    return '普通权限';
+                            }
+                        }
                     }
-                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: '25%'}
+                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: '10%'}
 
 
                 ]]
@@ -249,33 +282,50 @@
 
             function addOrUpdate(data) {
                 var getTpl = document.getElementById("demo").innerHTML;
-                laytpl(getTpl).render(data, function (html) {
-                    var index = layer.open({
-                        type: 1,
-                        content: html,
-                        area: ['500px', '600px']
-                    });
-                    form.render();
-                    form.on('submit(update_form_submit)', function (data) {
-                        layer.msg(JSON.stringify(data.field));
-                        $.ajax({
-                            "url": "/auth/updateOrAdd",
-                            "data": JSON.stringify(data.field),
-                            type: "post",
-                            contentType: 'application/json',
-                            dataType: "json",
-                            success: function (res) {
-                                if (res.code === 200) {
-                                    layer.msg("操作成功");
-                                    reload();
-                                    layer.close(index);
-                                } else {
-                                    layer.msg(res.msg);
-                                }
-                            }
-                        })
-                        return false;
-                    });
+                $.ajax({
+                    "url": "/auth/pAuthList",
+                    "data": JSON.stringify(data.field),
+                    type: "post",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    success: function (res) {
+                        if (res.code === 200) {
+                            data.data=res.data;
+                            laytpl(getTpl).render(data, function (html) {
+                                var index = layer.open({
+                                    type: 1,
+                                    content: html,
+                                    area: ['500px', '600px']
+                                });
+                                form.render();
+                                form.on('submit(update_form_submit)', function (data) {
+                                    layer.msg(JSON.stringify(data.field));
+                                    $.ajax({
+                                        "url": "/auth/updateOrAdd",
+                                        "data": JSON.stringify(data.field),
+                                        type: "post",
+                                        contentType: 'application/json',
+                                        dataType: "json",
+                                        success: function (res) {
+                                            if (res.code === 200) {
+                                                layer.msg("操作成功");
+                                                reload();
+                                                layer.close(index);
+                                            } else {
+                                                layer.msg(res.msg);
+                                            }
+                                        }
+                                    });
+                                    return false;
+                                });
+                            });
+                            layer.msg("操作成功");
+                            reload();
+                            layer.close(index);
+                        } else {
+                            layer.msg(res.msg);
+                        }
+                    }
                 });
             }
 

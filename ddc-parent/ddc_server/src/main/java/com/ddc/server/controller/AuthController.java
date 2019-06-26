@@ -49,10 +49,22 @@ public class AuthController {
         if (!StringUtils.isEmpty(keywords)) {
             wrapper = wrapper.like("name", keywords);
         }
-        ResponsePageModel<DDCAuth> page = ResponsePageHelper.buildResponseModel(
-                authService.selectPage(new Page<>(pageNumber, pageSize),
-                        wrapper));
-        return page;
+        Page<DDCAuth> page=authService.selectPage(new Page<>(pageNumber, pageSize),wrapper);
+        if (!CollectionUtils.isEmpty(page.getRecords())){
+            for (DDCAuth auth:page.getRecords()){
+                if (auth.getPId()==null||auth.getPId()==0L){
+                    auth.setPname("无");
+                }else{
+                    DDCAuth pAuth=authService.selectById(auth.getPId());
+                    if (pAuth==null){
+                        auth.setPname("未知");
+                    }else {
+                        auth.setPname(pAuth.getPname());
+                    }
+                }
+            }
+        }
+        return ResponsePageHelper.buildResponseModel(page);
     }
 
 
@@ -92,5 +104,24 @@ public class AuthController {
         authService.insertOrUpdate(entity);
 
         return ResponseHelper.buildResponseModel("操作成功");
+    }
+
+    @RequestMapping("/pAuthList")
+    @ResponseBody
+    public ResponseModel<List<DDCAuth>> updateOrAdd(@CurrentUser DDCAdmin admin)throws Exception{
+        Wrapper<DDCAuth> wrapper=new EntityWrapper<>();
+        wrapper=wrapper.eq("del_flag",0).in("level","1,2");
+        List<DDCAuth> auths=authService.selectList(wrapper);
+        if(!CollectionUtils.isEmpty(auths)){
+            for (DDCAuth auth:auths){
+                if(auth.getLevel()==2&&auth.getPId()!=0){
+                    DDCAuth pAuth=authService.selectById(auth.getPId());
+                    if (pAuth!=null){
+                        auth.setName(pAuth.getName()+"-"+auth.getName());
+                    }
+                }
+            }
+        }
+        return ResponseHelper.buildResponseModel(auths);
     }
 }

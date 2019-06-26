@@ -53,9 +53,7 @@ public class MyRealm extends AuthorizingRealm {
             this.authService = SpringContextBeanService.getBean(IDDCAuthService.class);
         }
 
-
-        String userNo = JWTUtil.getUserNo(principals.toString());
-        DDCAdmin admin = adminService.selectByName(userNo);
+        DDCAdmin admin = adminService.selectByName(((DDCAdmin)principals.getPrimaryPrincipal()).getName());
 
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         /*
