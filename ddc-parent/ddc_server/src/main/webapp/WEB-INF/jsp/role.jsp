@@ -152,6 +152,7 @@
                 ]]
 
             });
+            //uidqhaudh
 
             function deleteByIds(ids) {
                 layer.confirm('真的删除这些数据么', function (index) {
