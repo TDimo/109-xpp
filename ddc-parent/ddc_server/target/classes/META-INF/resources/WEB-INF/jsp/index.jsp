@@ -98,7 +98,8 @@
                     <li><a data-href="/page/article-list" data-title="资讯管理" href="javascript:void(0)">资讯管理</a></li>
                     <li><a data-href="/page/picture-list" data-title="图片管理" href="javascript:void(0)">图片管理</a></li>
                     <li><a data-href="/page/article_column" data-title="栏目管理" href="javascript:void(0)">栏目管理</a></li>
-                    <li><a data-href="/page/article_category" data-title="分类管理" href="javascript:void(0)">分类管理</a></li>
+                    <li><a data-href="/page/article-category" data-title="分类管理" href="javascript:void(0)">分类管理</a></li>
+
                 </ul>
             </dd>
         </dl>
@@ -124,7 +125,7 @@
                 <ul>
                     <!--<li><a data-href="http://h-ui.duoshuo.com/admin/" data-title="评论列表" href="javascript:;">评论列表</a>-->
                     </li>
-                    <li><a data-href="feedback-list.html" data-title="意见反馈" href="javascript:void(0)">意见反馈</a></li>
+                    <li><a data-href="/page/suggestings" data-title="意见反馈" href="javascript:void(0)">意见反馈</a></li>
                 </ul>
             </dd>
         </dl>
@@ -149,9 +150,9 @@
             <dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="admin-role.html" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>
-                    <li><a data-href="admin-permission.html" data-title="权限管理" href="javascript:void(0)">权限管理</a></li>
-                    <li><a data-href="admin-list.html" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
+                    <li><a data-href="/page/role" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>
+                    <li><a data-href="/page/auth" data-title="权限管理" href="javascript:void(0)">权限管理</a></li>
+                    <li><a data-href="/page/admin" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
                 </ul>
             </dd>
         </dl>
@@ -173,7 +174,7 @@
                     <!--<li><a data-href="system-base.html" data-title="系统设置" href="javascript:void(0)">系统设置</a></li>-->
                     <!--<li><a data-href="system-data.html" data-title="数据字典" href="javascript:void(0)">数据字典</a></li>-->
                     <!--<li><a data-href="system-shielding.html" data-title="屏蔽词" href="javascript:void(0)">屏蔽词</a></li>-->
-                    <li><a data-href="/page/welcome1" data-title="系统日志" href="javascript:void(0)">系统日志</a></li>
+                    <li><a data-href="system-log.html" data-title="系统日志" href="javascript:void(0)">系统日志</a></li>
                 </ul>
             </dd>
         </dl>
