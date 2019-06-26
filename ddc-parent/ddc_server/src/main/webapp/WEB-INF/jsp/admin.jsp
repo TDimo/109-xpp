@@ -213,7 +213,7 @@
                 , cols: [[ //表头
                     {type: 'checkbox', fixed: 'left'}
                     , {
-                        field: 'id', title: 'ID', width: '5%', sort: true, fixed: 'left', templet: function (d) {
+                        field: 'id', title: 'ID', width: '15%', sort: true, fixed: 'left', templet: function (d) {
                             return d.id;//long 转Stirng
                         }
                     }
@@ -234,11 +234,11 @@
                     }
                     ,
                     {field: 'mobile', title: '手机号', width: '10%'}
-                    , {field: 'email', title: '邮箱', width: '10%'}
+                    , {field: 'email', title: '邮箱', width: '15%'}
                     , {field: 'roleName', title: '角色名称', width: '10%'}
                     , {field: 'remark', title: '备注', width: '10%'}
                     , {
-                        field: 'status', title: '状态', width: '5%'
+                        field: 'status', title: '状态', width: '8.5%'
                         , templet: function (d) {
                             switch (d.status) {
                                 case 1:
@@ -249,7 +249,7 @@
                             }
                         }
                     }
-                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: '25%'}
+                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: '13%'}
 
 
                 ]]

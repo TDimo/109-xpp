@@ -146,7 +146,7 @@
                     {field: 'name', title: '角色名称', width: '25%'}
                     , {field: 'remark', title: '备注', width: '35%'}
 
-                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: '25%'}
+                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: '21%'}
 
 
                 ]]

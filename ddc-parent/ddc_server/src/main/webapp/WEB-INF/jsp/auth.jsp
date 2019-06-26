@@ -179,7 +179,7 @@
                     , {field: 'flag', title: '权限标示', width: '15%'}
                     , {field: 'pId', title: '上级权限ID', width: '15%'}
                     , {
-                        field: 'level', title: '权限级别', width: '20%'
+                        field: 'level', title: '权限级别', width: '15%'
                         , templet: function (d) {
                             switch (d.level) {
                                 case 1:
