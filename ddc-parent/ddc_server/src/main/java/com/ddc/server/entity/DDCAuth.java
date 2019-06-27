@@ -37,8 +37,6 @@ public class DDCAuth extends Model<DDCAuth> {
      * qu
      */
     private String name;
-    @TableField(exist = false)
-    private String pname;
     /**
      * 权限标识
      */
@@ -48,17 +46,21 @@ public class DDCAuth extends Model<DDCAuth> {
      */
     @TableField("p_id")
     private Long pId;
-    /**
-     * 权限级别
-     */
-    private Integer level;
 
     /**
-     * 权限级别  1：超级管理员权限  2：管理员权限  3：普通权限
+     * 上级权限名称
+     */
+    @TableField(exist = false)
+    private String pName;
+    /**
+     * 级别
+     */
+    private Integer level;
+    /**
+     * 权限级别   1 超级管理员权限 2 管理员权限 3 普通权限
      */
     @TableField("auth_level")
     private Integer authLevel;
-
     /**
      * 页面跳转地址
      */

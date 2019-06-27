@@ -45,6 +45,7 @@
         <button type="button" class="btn btn-success radius" id="search" name="search"><i
                 class="Hui-iconfont">&#xe665;</i> 搜索
         </button>
+        <input type="hidden" id="current_user" value="<shiro:principal property="name"/>">
     </div>
     <table class="table table-border table-bordered table-hover table-bg table-sort" lay-filter="test"
            style="margin-top: 10px;">
@@ -67,9 +68,69 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">等级</label>
+            <div class="layui-input-block">
+                {{# if(d.isRoot){ }}
+                <input type="radio" name="level" value="2" lay-filter="radio_level" title="管理员角色"
+                       {{# if(d.level===2){ }}
+                       checked
+                       {{# } }}
+                />
+                {{# } }}
+
+
+                <input type="radio" name="level" value="3" lay-filter="radio_level" title="普通角色"
+                       {{# if(d.level===3){ }}
+                       checked
+                       {{# } }}
+                />
+            </div>
+
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">分配权限</label>
+            <div class="layui-input-inline">
+                {{#  layui.each(d.auths, function(index, item){ }}
+
+                    <input type="checkbox" value="{{item.auth.id}}" id="auth-1-{{item.auth.id}}" title="{{item.auth.name}}" lay-skin="primary"><br/>
+                    {{#  if(item.nodes.length !== 0){ }}
+                <blockquote class="layui-elem-quote" style="margin-top: 10px">
+
+                    {{#  layui.each(item.nodes, function(index2, item2){ }}
+
+                    <span style="text-indent: 4px"/><input type="checkbox" value="{{item2.auth.id}}" id="auth-2-{{item2.auth.id}}" title="{{item2.auth.name}}" lay-skin="primary"><br/>
+
+                    {{#  if(item2.nodes.length !== 0){ }}
+                    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px">
+
+                        {{#  layui.each(item2.nodes, function(index3, item3){ }}
+                        <span style="text-indent: 6px"/><input type="checkbox" value="{{item3.auth.id}}" id="auth-3-{{item3.auth.id}}" title="{{item3.auth.name}}" lay-skin="primary">
+                        {{#  }); }}
+                    </blockquote>
+
+
+
+
+
+                    {{#  } }}
+
+                    {{#  }); }}
+                </blockquote>
+
+
+
+
+
+                    {{#  } }}
+
+                {{#  }); }}
+
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">备注</label>
             <div class="layui-input-inline">
-                <input type="text" name="remark" value="{{ d.remark || '' }}"  placeholder="请输入备注"
+                <input type="text" name="remark" value="{{ d.remark || '' }}" placeholder="请输入备注"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -138,15 +199,28 @@
                 , cols: [[ //表头
                     {type: 'checkbox', fixed: 'left'}
                     , {
-                        field: 'id', title: 'ID', width: '15%', sort: true, fixed: 'left', templet: function (d) {
+                        field: 'id', title: 'ID', width: '5%', sort: true, templet: function (d) {
                             return d.id;//long 转Stirng
                         }
                     }
                     ,
-                    {field: 'name', title: '角色名称', width: '25%'}
-                    , {field: 'remark', title: '备注', width: '35%'}
+                    {field: 'name', title: '角色名称', width: '15%'}
+                    , {
+                        field: 'level', title: '等级', width: '15%', sort: true, templet: function (d) {
+                            switch (d.level) {
+                                case 1:
+                                    return "超级管理员角色";
+                                case 2:
+                                    return "管理员角色";
+                                case 3:
+                                    return "普通角色";
+                            }
+                            // return d.id;//long 转Stirng
+                        }
+                    }
+                    , {field: 'remark', title: '备注', width: '40%'}
 
-                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: '21%'}
+                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: '25%'}
 
 
                 ]]
@@ -204,34 +278,52 @@
 
             function addOrUpdate(data) {
                 var getTpl = document.getElementById("demo").innerHTML;
-                laytpl(getTpl).render(data, function (html) {
-                    var index = layer.open({
-                        type: 1,
-                        content: html,
-                        area: ['500px', '600px']
-                    });
-                    form.render();
-                    form.on('submit(update_form_submit)', function (data) {
-                        layer.msg(JSON.stringify(data.field));
-                        $.ajax({
-                            "url": "/role/updateOrAdd",
-                            "data": JSON.stringify(data.field),
-                            type: "post",
-                            contentType: 'application/json',
-                            dataType: "json",
-                            success: function (res) {
-                                if (res.code === 200) {
-                                    layer.msg("操作成功");
-                                    reload();
-                                    layer.close(index);
-                                } else {
-                                    layer.msg(res.msg);
-                                }
-                            }
-                        })
-                        return false;
-                    });
-                });
+                if (data == null) {
+                    data = {};
+                }
+                data.isRoot = $("#current_user").val() === "root";
+                $.ajax({
+                    "url": "/role/getAuths",
+                    type: "get",
+                    dataType: "json",
+                    success: function (d) {
+                        if (d.code === 200) {
+                            console.log(d.data)
+                            data.auths=d.data;
+                            laytpl(getTpl).render(data, function (html) {
+                                var index = layer.open({
+                                    type: 1,
+                                    content: html,
+                                    area: ['500px', '600px']
+                                });
+                                form.render();
+                                form.on('submit(update_form_submit)', function (data) {
+                                    layer.msg(JSON.stringify(data.field));
+                                    $.ajax({
+                                        "url": "/role/updateOrAdd",
+                                        "data": JSON.stringify(data.field),
+                                        type: "post",
+                                        contentType: 'application/json',
+                                        dataType: "json",
+                                        success: function (res) {
+                                            if (res.code === 200) {
+                                                layer.msg("操作成功");
+                                                reload();
+                                                layer.close(index);
+                                            } else {
+                                                layer.msg(res.msg);
+                                            }
+                                        }
+                                    })
+                                    return false;
+                                });
+                            });
+                        } else {
+                            layer.msg(d.msg);
+                        }
+                    }
+                })
+
             }
 
 //监听行工具事件

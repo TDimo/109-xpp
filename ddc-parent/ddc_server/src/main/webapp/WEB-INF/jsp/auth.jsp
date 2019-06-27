@@ -74,33 +74,47 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">上级权限ID</label>
+            <label class="layui-form-label">跳转地址</label>
             <div class="layui-input-inline">
-                <input type="text" name="pId" value="{{ d.pId || '' }}" lay-verify="pId" placeholder="请输入下级权限ID"
+                <input type="text" name="menuUrl" value="{{ d.menuUrl || '' }}"
+                       placeholder="请输入跳转地址"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
-
+        <%--        <div class="layui-form-item">--%>
+        <%--            <label class="layui-form-label">上级权限ID</label>--%>
+        <%--            <div class="layui-input-inline">--%>
+        <%--                <input type="text" name="pId" value="{{ d.pId || '' }}" lay-verify="pId" placeholder="请输入下级权限ID"--%>
+        <%--                       autocomplete="off" class="layui-input">--%>
+        <%--            </div>--%>
+        <%--        </div>--%>
         <div class="layui-form-item">
             <label class="layui-form-label">上级权限</label>
             <div class="layui-input-block">
-                <select name="pId" lay-verify="required">
+                <select name="pId" lay-filter="aihao">
                     <option value="0">无</option>
-                    {{# layui.each(d.data,function(index,item){}}
-                    <option value="{{item.id}}"
+                    {{# layui.each(d.data, function(index, item){ }}
+                    <option value="{{item.id}}" level="{{item.level}}"
                             {{# if(d.pId===item.id){ }}
                             selected
                             {{# } }}
-                    >
-                        {{item.name}}
+                            {{# if(d.level===1){ }}
+                            disabled
+                            {{# } }}
+                            {{# if(d.level===2&&item.level===2){ }}
+                            disabled
+                            {{# } }}
+                            {{# if(d.level===3&&item.level===1){ }}
+                            disabled
+                            {{# } }}
+                    >{{item.name}}
                     </option>
                     {{# }); }}
                 </select>
             </div>
         </div>
-
         <div class="layui-form-item">
-            <label class="layui-form-label">权限级别</label>
+            <label class="layui-form-label">级别</label>
             <div class="layui-input-block">
                 <%--            <script type="text/html" template>--%>
 
@@ -116,8 +130,33 @@
                        {{# } }}
                 />
 
-                <input type="radio" name="level"  value="3" title="操作"
+                <input type="radio" name="level" value="3" title="操作"
                        {{# if(d.level===3){ }}
+                       checked
+                       {{# } }}
+                />
+            </div>
+
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">权限级别</label>
+            <div class="layui-input-block">
+                <%--            <script type="text/html" template>--%>
+
+                <input type="radio" name="authLevel" value="1" title="超级管理员权限"
+                       {{# if(d.authLevel===1){ }}
+                       checked
+                       {{# } }}
+                />
+
+                <input type="radio" name="authLevel" value="2" title="管理员权限"
+                       {{# if(d.authLevel===2){ }}
+                       checked
+                       {{# } }}
+                />
+
+                <input type="radio" name="authLevel" value="3" title="普通权限"
+                       {{# if(d.authLevel===3){ }}
                        checked
                        {{# } }}
                 />
@@ -188,18 +227,17 @@
                 , cols: [[ //表头
                     {type: 'checkbox', fixed: 'left'}
                     , {
-                        field: 'id', title: 'ID', width: '9%', sort: true, fixed: 'left', templet: function (d) {
+                        field: 'id', title: 'ID', width: '15%', sort: true, fixed: 'left', templet: function (d) {
                             return d.id;//long 转Stirng
                         }
                     }
-                    ,
-                    {field: 'pName', title: '上级权限', width: '10%'},
-                    {field: 'menuUrl', title: '跳转地址', width: '10%'},
-                    {field: 'name', title: '权限名称', width: '15%'}
-                    , {field: 'flag', title: '权限标示', width: '10%'}
-                    , {field: 'pId', title: '上级权限ID', width: '9%'}
+
+                    , {field: 'pName', title: '上级权限', width: '15%'}
+                    , {field: 'menuUrl', title: '跳转地址', width: '15%'}
+                    , {field: 'name', title: '权限名称', width: '10%'}
+                    , {field: 'flag', title: '权限标示', width: '15%'}
                     , {
-                        field: 'level', title: '权限级别', width: '10%'
+                        field: 'level', title: '级别', width: '20%'
                         , templet: function (d) {
                             switch (d.level) {
                                 case 1:
@@ -210,9 +248,9 @@
                                     return '操作';
                             }
                         }
-                    },
-                    {
-                        field: 'authLevel', title: '权限级别', width: '13%'
+                    }
+                    , {
+                        field: 'authLevel', title: '权限级别', width: '20%'
                         , templet: function (d) {
                             switch (d.authLevel) {
                                 case 1:
@@ -224,7 +262,7 @@
                             }
                         }
                     }
-                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: '10%'}
+                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: '25%'}
 
 
                 ]]
@@ -284,19 +322,33 @@
                 var getTpl = document.getElementById("demo").innerHTML;
                 $.ajax({
                     "url": "/auth/pAuthList",
-                    "data": JSON.stringify(data.field),
                     type: "post",
                     contentType: 'application/json',
                     dataType: "json",
                     success: function (res) {
                         if (res.code === 200) {
-                            data.data=res.data;
+                            data.data = res.data;
                             laytpl(getTpl).render(data, function (html) {
                                 var index = layer.open({
                                     type: 1,
                                     content: html,
                                     area: ['500px', '600px']
                                 });
+
+                                if (data != null) {
+                                    switch (data.level) {
+                                        case 1:
+                                            $("select[name='level'] option[level='1']").attr("disabled", true);
+                                            $("select[name='level'] option[level='2']").attr("disabled", true);
+                                            break;
+                                        case 2:
+                                            // $("select[name='level'] option[level='1']").attr("disabled",true);
+                                            $("select[name='level'] option[level='2']").attr("disabled", true);
+                                            break;
+                                        case 3:
+                                            break;
+                                    }
+                                }
                                 form.render();
                                 form.on('submit(update_form_submit)', function (data) {
                                     layer.msg(JSON.stringify(data.field));
@@ -315,18 +367,16 @@
                                                 layer.msg(res.msg);
                                             }
                                         }
-                                    });
+                                    })
                                     return false;
                                 });
                             });
-                            layer.msg("操作成功");
-                            reload();
-                            layer.close(index);
                         } else {
                             layer.msg(res.msg);
                         }
                     }
-                });
+                })
+
             }
 
 //监听行工具事件

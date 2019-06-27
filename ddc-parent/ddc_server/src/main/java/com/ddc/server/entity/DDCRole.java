@@ -35,7 +35,11 @@ public class DDCRole extends Model<DDCRole> {
      * 用户名
      */
     private String name;
-
+    /**
+     * 角色等级  1 超级管理员角色  2 管理员角色  3 普通角色
+     */
+    @TableField("role_level")
+    private Integer level;
 
     /**
      * 备注

@@ -11,7 +11,11 @@ import com.ddc.server.config.web.http.ResponsePageModel;
 import com.ddc.server.entity.DDCAdmin;
 import com.ddc.server.entity.DDCAuth;
 import com.ddc.server.entity.DDCRole;
+import com.ddc.server.service.IDDCAuthService;
 import com.ddc.server.service.IDDCRoleService;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +36,9 @@ import java.util.List;
 public class RoleController {
 
     @Resource
-    IDDCRoleService roleService
-            ;
+    IDDCRoleService roleService;
+    @Resource
+    IDDCAuthService authService;
 
     @RequestMapping("/list")
     @ResponseBody
@@ -51,6 +56,7 @@ public class RoleController {
         if (!StringUtils.isEmpty(keywords)) {
             wrapper = wrapper.like("name", keywords);
         }
+        wrapper=wrapper.gt("role_level",1);
         ResponsePageModel<DDCRole> page = ResponsePageHelper.buildResponseModel(
                 roleService.selectPage(new Page<>(pageNumber, pageSize),
                         wrapper));
@@ -94,5 +100,30 @@ public class RoleController {
         roleService.insertOrUpdate(entity);
 
         return ResponseHelper.buildResponseModel("操作成功");
+    }
+
+    @RequestMapping("/getAuths")
+    @ResponseBody
+    public ResponseModel<List<AuthNode>> getAuths(@CurrentUser DDCAdmin admin) throws Exception {
+        DDCRole currentRole=roleService.selectById(admin.getId());
+        List<AuthNode> nodes=new ArrayList<>(10);
+        List<DDCAuth> topAuths=authService.selectList(new EntityWrapper<DDCAuth>()
+                .gt("auth_level",currentRole.getLevel())
+                .eq("del_flag",0));
+        if (!CollectionUtils.isEmpty(topAuths)){
+            for (DDCAuth auth:topAuths){
+                AuthNode authNode=new AuthNode(auth,new ArrayList<>());
+                nodes.add(authNode);
+            }
+        }
+        return ResponseHelper.buildResponseModel(nodes);
+    }
+
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Data
+    public static class AuthNode{
+        private DDCAuth auth;
+        private List<AuthNode> nodes;
     }
 }
