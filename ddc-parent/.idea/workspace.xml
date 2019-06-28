@@ -12,14 +12,18 @@
       <change beforePath="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/controller/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/controller/RoleController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/entity/DDCAuth.java" beforeDir="false" afterPath="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/entity/DDCAuth.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/entity/DDCRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/entity/DDCRole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ddc_server/src/main/webapp/WEB-INF/jsp/auth.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/ddc_server/src/main/webapp/WEB-INF/jsp/auth.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/mapper/DDCRoleAuthMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/mapper/DDCRoleAuthMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/service/IDDCRoleAuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/service/IDDCRoleAuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/service/impl/DDCRoleAuthServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/service/impl/DDCRoleAuthServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ddc_server/src/main/webapp/WEB-INF/jsp/role.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/ddc_server/src/main/webapp/WEB-INF/jsp/role.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ddc_server/target/classes/com/ddc/server/controller/RoleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/ddc_server/target/classes/com/ddc/server/controller/RoleController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ddc_server/target/classes/com/ddc/server/entity/DDCAuth$DDCAuthBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/ddc_server/target/classes/com/ddc/server/entity/DDCAuth$DDCAuthBuilder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ddc_server/target/classes/com/ddc/server/entity/DDCAuth.class" beforeDir="false" afterPath="$PROJECT_DIR$/ddc_server/target/classes/com/ddc/server/entity/DDCAuth.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ddc_server/target/classes/com/ddc/server/entity/DDCRole$DDCRoleBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/ddc_server/target/classes/com/ddc/server/entity/DDCRole$DDCRoleBuilder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ddc_server/target/classes/com/ddc/server/entity/DDCRole.class" beforeDir="false" afterPath="$PROJECT_DIR$/ddc_server/target/classes/com/ddc/server/entity/DDCRole.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ddc_server/target/classes/com/ddc/server/shiro/MyRealm.class" beforeDir="false" afterPath="$PROJECT_DIR$/ddc_server/target/classes/com/ddc/server/shiro/MyRealm.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ddc_server/target/classes/com/ddc/server/mapper/DDCRoleAuthMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/ddc_server/target/classes/com/ddc/server/mapper/DDCRoleAuthMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ddc_server/target/classes/com/ddc/server/service/IDDCRoleAuthService.class" beforeDir="false" afterPath="$PROJECT_DIR$/ddc_server/target/classes/com/ddc/server/service/IDDCRoleAuthService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ddc_server/target/classes/com/ddc/server/service/impl/DDCRoleAuthServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ddc_server/target/classes/com/ddc/server/service/impl/DDCRoleAuthServiceImpl.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/ddc_server/target/" />
@@ -50,19 +54,46 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/entity/DDCRole.java">
+        <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/entity/DDCAuth.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="41" column="26" selection-start-line="41" selection-start-column="26" selection-end-line="41" selection-end-column="26" />
+            <state relative-caret-position="85">
+              <caret line="96" column="28" selection-start-line="96" selection-start-column="28" selection-end-line="96" selection-end-column="28" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/entity/DDCAuth.java">
+        <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/service/IDDCRoleAuthService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1107">
-              <caret line="30" column="7" selection-start-line="30" selection-start-column="7" selection-end-line="30" selection-end-column="7" />
+            <state relative-caret-position="157">
+              <caret line="17" column="39" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/controller/AuthController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="157">
+              <caret line="117" column="37" selection-start-line="117" selection-start-column="37" selection-end-line="117" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/entity/DDCRole.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="222">
+              <caret line="64" selection-start-line="64" selection-end-line="64" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/controller/RoleController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="98">
+              <caret line="67" column="46" selection-start-line="67" selection-start-column="46" selection-end-line="67" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -71,16 +102,46 @@
         <entry file="file://$PROJECT_DIR$/ddc_server/src/main/webapp/WEB-INF/jsp/role.jsp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="27">
-              <caret line="85" column="18" selection-start-line="85" selection-start-column="18" selection-end-line="85" selection-end-column="18" />
+              <caret line="96" column="37" selection-start-line="96" selection-start-column="37" selection-end-line="96" selection-end-column="37" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ddc_server/src/main/webapp/WEB-INF/jsp/auth.jsp">
+        <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/service/impl/DDCRoleAuthServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="114" column="14" selection-start-line="114" selection-start-column="14" selection-end-line="114" selection-end-column="14" />
+            <state relative-caret-position="243">
+              <caret line="28" column="1" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+              <folding>
+                <element signature="e#697#698#0" expanded="true" />
+                <element signature="e#733#734#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/service/impl/DDCMemberServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="70">
+              <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="22" selection-end-column="41" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#648#649#0" expanded="true" />
+                <element signature="e#695#696#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/service/IDDCMemberService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="174">
+              <caret line="8" column="39" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -154,13 +215,17 @@
         <option value="$PROJECT_DIR$/ddc_server/src/main/webapp/WEB-INF/jsp/index.jsp" />
         <option value="$PROJECT_DIR$/ddc_server/src/main/webapp/WEB-INF/jsp/admin.jsp" />
         <option value="$PROJECT_DIR$/ddc_server/src/main/resources/application.properties" />
-        <option value="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/entity/DDCAuth.java" />
         <option value="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/shiro/MyRealm.java" />
         <option value="$PROJECT_DIR$/ddc_server/src/main/webapp/WEB-INF/jsp/auth.jsp" />
         <option value="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/controller/AuthController.java" />
-        <option value="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/entity/DDCRole.java" />
         <option value="$PROJECT_DIR$/ddc_server/src/main/webapp/WEB-INF/jsp/role.jsp" />
         <option value="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/controller/RoleController.java" />
+        <option value="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/mapper/DDCAuthMapper.java" />
+        <option value="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/mapper/DDCRoleAuthMapper.java" />
+        <option value="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/entity/DDCAuth.java" />
+        <option value="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/entity/DDCRole.java" />
+        <option value="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/service/IDDCRoleAuthService.java" />
+        <option value="$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/service/impl/DDCRoleAuthServiceImpl.java" />
       </list>
     </option>
   </component>
@@ -250,6 +315,37 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
               <item name="entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ddc-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ddc-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="ddc_server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="mapper" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ddc-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ddc-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="ddc_server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ddc-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ddc-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="ddc_server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="impl" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ddc-parent" type="b2602c69:ProjectViewProjectNode" />
@@ -439,7 +535,7 @@
       <workItem from="1561186003154" duration="1830000" />
       <workItem from="1561191403182" duration="1562000" />
       <workItem from="1561448859853" duration="18047000" />
-      <workItem from="1561615830221" duration="6359000" />
+      <workItem from="1561615830221" duration="11674000" />
     </task>
     <task id="LOCAL-00001" summary="Dimo's First pull">
       <created>1561471130629</created>
@@ -469,7 +565,14 @@
       <option name="project" value="LOCAL" />
       <updated>1561551446289</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Dimo's 4 pull(2019.6.27)">
+      <created>1561634984249</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1561634984249</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -490,7 +593,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="190762000" />
+    <option name="totallyTimeSpent" value="196077000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -505,7 +608,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25670242" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25670242" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -515,7 +618,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32924962" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.33843797" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.35222054" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39969373" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -548,33 +651,10 @@
     <MESSAGE value="Dimo's First pull" />
     <MESSAGE value="Dimo's Second pull" />
     <MESSAGE value="Dimo's Third pull" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dimo's Third pull" />
+    <MESSAGE value="Dimo's 4 pull(2019.6.27)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dimo's 4 pull(2019.6.27)" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/entity/OperationLog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-304">
-          <caret line="37" column="7" lean-forward="true" selection-start-line="37" selection-start-column="7" selection-end-line="37" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/controller/OperationLogController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ddc_server/src/test/java/com/ddc/server/mapper/DDCMemberMapperTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="21" column="91" selection-start-line="21" selection-start-column="91" selection-end-line="21" selection-end-column="91" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/service/impl/DDCAuthServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="139">
@@ -586,23 +666,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="243">
           <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/mapper/DDCAuthMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="12" column="49" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/service/IDDCMemberService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="8" column="39" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -670,18 +733,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1161">
           <caret line="43" column="27" selection-start-line="43" selection-start-column="27" selection-end-line="43" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/service/impl/DDCMemberServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="25" column="40" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#648#649#0" expanded="true" />
-            <element signature="e#695#696#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -902,13 +953,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/entity/DDCAuth.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1107">
-          <caret line="30" column="7" selection-start-line="30" selection-start-column="7" selection-end-line="30" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ddc_server/src/main/webapp/WEB-INF/jsp/auth.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -923,37 +967,95 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/controller/AuthController.java">
+    <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/entity/role.jsp">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/mapper/DDCAuthMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="120" column="45" selection-start-line="120" selection-start-column="45" selection-end-line="120" selection-end-column="45" />
+        <state relative-caret-position="179">
+          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/entity/DDCAuth.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="96" column="28" selection-start-line="96" selection-start-column="28" selection-end-line="96" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/mapper/DDCRoleAuthMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="18" column="29" selection-start-line="18" selection-start-column="15" selection-end-line="18" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/service/impl/DDCMemberServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="70">
+          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="22" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#648#649#0" expanded="true" />
+            <element signature="e#695#696#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/service/IDDCMemberService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="8" column="39" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/entity/DDCRole.java">
+    <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/service/impl/DDCRoleAuthServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="41" column="26" selection-start-line="41" selection-start-column="26" selection-end-line="41" selection-end-column="26" />
+        <state relative-caret-position="243">
+          <caret line="28" column="1" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+          <folding>
+            <element signature="e#697#698#0" expanded="true" />
+            <element signature="e#733#734#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/entity/role.jsp">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/service/IDDCRoleAuthService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="17" column="39" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/controller/AuthController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="117" column="37" selection-start-line="117" selection-start-column="37" selection-end-line="117" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/entity/DDCRole.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="64" selection-start-line="64" selection-end-line="64" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ddc_server/src/main/java/com/ddc/server/controller/RoleController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1224">
-          <caret line="106" column="28" selection-start-line="106" selection-start-column="28" selection-end-line="106" selection-end-column="28" />
+        <state relative-caret-position="98">
+          <caret line="67" column="46" selection-start-line="67" selection-start-column="46" selection-end-line="67" selection-end-column="46" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ddc_server/src/main/webapp/WEB-INF/jsp/role.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="27">
-          <caret line="85" column="18" selection-start-line="85" selection-start-column="18" selection-end-line="85" selection-end-column="18" />
+          <caret line="96" column="37" selection-start-line="96" selection-start-column="37" selection-end-line="96" selection-end-column="37" />
         </state>
       </provider>
     </entry>

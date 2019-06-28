@@ -53,8 +53,30 @@
     </table>
 </div>
 
-
+<script>
+    var checkAuth=function(d,id){
+        if(d.authMsg==undefined||d.authMsg==null||d.authMsg.length===0){
+            return false;
+        }
+        for (var i = 0; i <d.authMsg.length ; i++) {
+            if(d.authMsg[i]===id) return true;
+        }
+        return false;
+    };
+</script>
 <script id="demo" type="text/html">
+
+    {{#
+        var checkAuth=function(d,id){
+            if(d.authMsg==undefined||d.authMsg==null||d.authMsg.length===0){
+            return false;
+            }
+            for (var i = 0; i < d.authMsg.length ; i++) {
+                if(d.authMsg[i]===id) return true;
+            }
+            return false;
+        };
+    }}
     <form class="layui-form" action="">
         <input type="hidden" name="id" value="{{ d.id || '' }}" autocomplete="off">
 
@@ -90,40 +112,50 @@
         <div class="layui-form-item">
             <label class="layui-form-label">分配权限</label>
             <div class="layui-input-inline">
-                {{#  layui.each(d.auths, function(index, item){ }}
+                {{# layui.each(d.auths, function(index, item){ }}
 
-                    <input type="checkbox" value="{{item.auth.id}}" id="auth-1-{{item.auth.id}}" title="{{item.auth.name}}" lay-skin="primary"><br/>
-                    {{#  if(item.nodes.length !== 0){ }}
+                <input type="checkbox" lay-filter="filter" value="{{item.auth.id}}" level="{{item.auth.level}}" id="auth-{{item.auth.id}}" title="{{item.auth.name}}"
+
+                       {{#  if(checkAuth(d,item.auth.id)){ }}
+                       checked
+                       {{#  } }}
+                       lay-skin="primary"><br/>
+                {{# if(item.nodes.length !== 0){ }}
                 <blockquote class="layui-elem-quote" style="margin-top: 10px">
 
-                    {{#  layui.each(item.nodes, function(index2, item2){ }}
+                    {{# layui.each(item.nodes, function(index2, item2){ }}
 
-                    <span style="text-indent: 4px"/><input type="checkbox" value="{{item2.auth.id}}" id="auth-2-{{item2.auth.id}}" title="{{item2.auth.name}}" lay-skin="primary"><br/>
+                    <span style="text-indent: 4px"/><input type="checkbox" level="{{item2.auth.level}}" value="{{item2.auth.id}}"
+                                                           id="auth-{item.auth.id}}-{{item2.auth.id}}"
+                                                           {{#  if(checkAuth(d,item2.auth.id)){ }}
+                                                           checked
+                                                           {{#  } }}
+                                                           title="{{item2.auth.name}}" lay-skin="primary"><br/>
 
-                    {{#  if(item2.nodes.length !== 0){ }}
+                    {{# if(item2.nodes.length !== 0){ }}
                     <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px">
 
-                        {{#  layui.each(item2.nodes, function(index3, item3){ }}
-                        <span style="text-indent: 6px"/><input type="checkbox" value="{{item3.auth.id}}" id="auth-3-{{item3.auth.id}}" title="{{item3.auth.name}}" lay-skin="primary">
-                        {{#  }); }}
+                        {{# layui.each(item2.nodes, function(index3, item3){ }}
+                        <span style="text-indent: 6px"/><input level="{{item3.auth.level}}" type="checkbox" value="{{item3.auth.id}}"
+                                                               id="auth-{item.auth.id}}-{{item2.auth.id}}-{{item3.auth.id}}"
+                                                               title="{{item3.auth.name}}"
+                                                               {{#  if(checkAuth(d,item3.auth.id)){ }}
+                                                               checked
+                                                               {{#  } }}
+                                                               lay-skin="primary">
+                        {{# }); }}
                     </blockquote>
 
 
+                    {{# } }}
 
-
-
-                    {{#  } }}
-
-                    {{#  }); }}
+                    {{# }); }}
                 </blockquote>
 
 
+                {{# } }}
 
-
-
-                    {{#  } }}
-
-                {{#  }); }}
+                {{# }); }}
 
             </div>
         </div>
@@ -171,7 +203,6 @@
         layui.use(['table', 'laytpl', 'element', 'form'], function () {
             var table = layui.table;
             var laytpl = layui.laytpl;
-            var element = layui.element;
             var form = layui.form;
             $("#search").click(function () {
                 reload();
@@ -289,7 +320,7 @@
                     success: function (d) {
                         if (d.code === 200) {
                             console.log(d.data)
-                            data.auths=d.data;
+                            data.auths = d.data;
                             laytpl(getTpl).render(data, function (html) {
                                 var index = layer.open({
                                     type: 1,
@@ -297,24 +328,36 @@
                                     area: ['500px', '600px']
                                 });
                                 form.render();
+
                                 form.on('submit(update_form_submit)', function (data) {
                                     layer.msg(JSON.stringify(data.field));
-                                    $.ajax({
-                                        "url": "/role/updateOrAdd",
-                                        "data": JSON.stringify(data.field),
-                                        type: "post",
-                                        contentType: 'application/json',
-                                        dataType: "json",
-                                        success: function (res) {
-                                            if (res.code === 200) {
-                                                layer.msg("操作成功");
-                                                reload();
-                                                layer.close(index);
-                                            } else {
-                                                layer.msg(res.msg);
+                                    var arr = [];
+                                    $("input[type='checkbox'][id^='auth-']:checked").each(function (i, dom) {
+                                        console.log($(dom).val());
+                                        arr.push($(dom).val());
+                                    });
+                                    if (arr.length === 0) {
+                                        layer.msg(" 请先分配好权限");
+                                    } else {
+                                        data.field.authMsg = arr;
+                                        $.ajax({
+                                            "url": "/role/updateOrAdd",
+                                            "data": JSON.stringify(data.field),
+                                            type: "post",
+                                            contentType: 'application/json',
+                                            dataType: "json",
+                                            success: function (res) {
+                                                if (res.code === 200) {
+                                                    layer.msg("操作成功");
+                                                    reload();
+                                                    layer.close(index);
+                                                } else {
+                                                    layer.msg(res.msg);
+                                                }
                                             }
-                                        }
-                                    })
+                                        })
+                                    }
+
                                     return false;
                                 });
                             });

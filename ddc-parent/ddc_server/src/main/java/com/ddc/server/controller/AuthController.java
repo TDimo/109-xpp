@@ -3,6 +3,7 @@ package com.ddc.server.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.plugins.pagination.PageHelper;
 import com.ddc.server.annotation.CurrentUser;
 import com.ddc.server.config.web.http.ResponseHelper;
 import com.ddc.server.config.web.http.ResponseModel;
@@ -36,15 +37,14 @@ public class AuthController {
 
   @Resource IDDCAuthService authService;
   @Resource
-    IDDCRoleAuthService roleAuthService;
-  @Resource
-    IDDCRoleService roleService;
+  IDDCRoleService roleService;
+  @Resource IDDCRoleAuthService roleAuthService;
 
   @RequestMapping("/list")
   @ResponseBody
   public ResponsePageModel<DDCAuth> list(
       @RequestParam(name = "page", required = false, defaultValue = "1") Integer pageNumber,
-      @RequestParam(name = "limit", required = false, defaultValue = "10") Integer pageSize,
+      @RequestParam(name = "limit", required = false, defaultValue = "9999") Integer pageSize,
       String start,
       String end,
       String keywords)
@@ -65,18 +65,18 @@ public class AuthController {
       for (DDCAuth auth : page0.getRecords()) {
         if (auth.getPId() == null || auth.getPId() == 0L) {
           auth.setPName("无");
-        }else {
-            DDCAuth pAuth=authService.selectById(auth.getPId());
-            if(pAuth==null){
-                auth.setPName("未知");
+        } else {
+          DDCAuth pAuth = authService.selectById(auth.getPId());
+          if (pAuth == null) {
+            auth.setPName("未知");
 
-            }else {
-                auth.setPName(pAuth.getName());
-
-            }
+          } else {
+            auth.setPName(pAuth.getName());
+          }
         }
       }
     }
+    PageHelper.startPage(pageNumber,pageSize);
     ResponsePageModel<DDCAuth> page = ResponsePageHelper.buildResponseModel(page0);
     return page;
   }
@@ -93,55 +93,56 @@ public class AuthController {
     }
     if (!CollectionUtils.isEmpty(idArray)) {
       authService.deleteBatchIds(idArray);
-      roleAuthService.delete(new EntityWrapper<DDCRoleAuth>().in("auth_id",ids));
+      // todo 删除已经删除的权限的中间表数据
+      //        Map<String,Object> map=new HashMap<>(5);
+      roleAuthService.delete(new EntityWrapper<DDCRoleAuth>().in("auth_id", ids));
       return ResponseHelper.buildResponseModel("删除成功");
     } else {
-      return new ResponseModel<String>("删除失败", ResponseModel.FAIL.getCode());
+      return new ResponseModel<>("删除失败", ResponseModel.FAIL.getCode());
     }
   }
 
   @RequestMapping("/updateOrAdd")
   @ResponseBody
-  public ResponseModel<String> updateOrAdd(@RequestBody DDCAuth entity, @CurrentUser DDCAdmin admin)
+  public ResponseModel<String> updateOrAdd(@RequestBody DDCAuth auth, @CurrentUser DDCAdmin admin)
       throws Exception {
-      boolean bool=false;
-    if (entity.getId() == null) {
-        bool=true;
-      entity.setCreateBy(admin.getId());
-      entity.setCreateTime(System.currentTimeMillis());
-      entity.setDelFlag(0);
+    boolean bool = false;
+    if (auth.getId() == null) {
+      bool = true;
+      auth.setCreateBy(admin.getId());
+      auth.setCreateTime(System.currentTimeMillis());
+      auth.setDelFlag(0);
     }
-    entity.setUpdateBy(admin.getId());
-    entity.setUpdateTime(System.currentTimeMillis());
-    authService.insertOrUpdate(entity);
-    if (bool){
-        DDCRole rootRole=roleService.selectOne(new EntityWrapper<DDCRole>().eq("name","超级管理员"));
-        if (rootRole!=null){
-            DDCRoleAuth roleAuth=new DDCRoleAuth(null,rootRole.getId(),entity.getId());
+    auth.setUpdateBy(admin.getId());
+    auth.setUpdateTime(System.currentTimeMillis());
+    authService.insertOrUpdate(auth);
+    if (bool) {
+        DDCRole rootRole=roleService.selectOne(
+                new EntityWrapper<DDCRole>().eq("name","超级管理员"));
+        if(rootRole!=null){
+            DDCRoleAuth roleAuth=new DDCRoleAuth(null,rootRole.getId(),auth.getId());
             roleAuthService.insert(roleAuth);
         }
     }
     return ResponseHelper.buildResponseModel("操作成功");
   }
 
-
-    @RequestMapping("/pAuthList")
-    @ResponseBody
-    public ResponseModel<List<DDCAuth>> pAuthList( @CurrentUser DDCAdmin admin)
-            throws Exception {
-      Wrapper<DDCAuth> wrapper=new EntityWrapper<>();
-     wrapper= wrapper.eq("del_flag",0).in("level","1,2");
-        List<DDCAuth> auths=authService.selectList(wrapper);
-        if(!CollectionUtils.isEmpty(auths)){
-            for(DDCAuth auth:auths){
-                if(auth.getLevel()==2&&auth.getPId()!=0){
-                    DDCAuth pAuth=authService.selectById(auth.getPId());
-                    if(pAuth!=null){
-                        auth.setName(pAuth.getName()+"-"+auth.getName());
-                    }
-                }
-            }
+  @RequestMapping("/pAuthList")
+  @ResponseBody
+  public ResponseModel<List<DDCAuth>> pAuthList() throws Exception {
+    Wrapper<DDCAuth> wrapper = new EntityWrapper<>();
+    wrapper = wrapper.eq("del_flag", 0).in("level", "1,2");
+    List<DDCAuth> auths = authService.selectList(wrapper);
+    if (!CollectionUtils.isEmpty(auths)) {
+      for (DDCAuth auth : auths) {
+        if (auth.getLevel() == 2 && auth.getPId() != 0) {
+          DDCAuth pAuth = authService.selectById(auth.getPId());
+          if (pAuth != null) {
+            auth.setName(pAuth.getName() + "-" + auth.getName());
+          }
         }
-        return ResponseHelper.buildResponseModel(auths);
+      }
     }
+    return ResponseHelper.buildResponseModel(auths);
+  }
 }
