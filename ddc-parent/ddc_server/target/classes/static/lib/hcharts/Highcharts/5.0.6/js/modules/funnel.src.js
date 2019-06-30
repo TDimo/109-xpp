@@ -131,7 +131,7 @@
 
 
 
-                    // get the total sum
+                    // get the count sum
                     each(data, function(point) {
                         if (!ignoreHiddenPoint || point.visible !== false) {
                             sum += point.y;

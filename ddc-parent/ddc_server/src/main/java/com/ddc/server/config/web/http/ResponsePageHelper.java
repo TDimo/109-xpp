@@ -1,6 +1,7 @@
 package com.ddc.server.config.web.http;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -20,6 +21,15 @@ public class ResponsePageHelper {
         response.setMsg(HttpStatus.OK.getReasonPhrase());
         response.setData(page.getRecords());
         response.setCount(page.getTotal());
+        return response;
+    }
+
+    public static <T> ResponsePageModel<T> buildResponseModel(PageInfo<T> page) {
+        ResponsePageModel response = new ResponsePageModel();
+        response.setCode(0);
+        response.setMsg(HttpStatus.OK.getReasonPhrase());
+        response.setData(page.getList());
+        response.setCount((int) page.getTotal());
         return response;
     }
 }

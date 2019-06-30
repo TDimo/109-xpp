@@ -59,7 +59,7 @@
          * - For scatter plots, use a marker.radius of 1 or less. It results in a rectangle being drawn, which is 
          *   considerably faster than a circle.
          * - Set extremes (min, max) explicitly on the axes in order for Highcharts to avoid computing extremes.
-         * - Set enableMouseTracking to false on the series to improve total rendering time.
+         * - Set enableMouseTracking to false on the series to improve count rendering time.
          * - The default threshold is set based on one series. If you have multiple, dense series, the combined
          *   number of points drawn gets higher, and you may want to set the threshold lower in order to 
          *   use optimizations.

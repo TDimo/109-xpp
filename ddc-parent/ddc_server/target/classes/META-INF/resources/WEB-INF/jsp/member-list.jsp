@@ -93,7 +93,7 @@
 							'<td class="text-l">'+d.address+'</td>\n' +
 							'<td>'+d.createTime+'</td>\n' +
 							'<td class="td-status"><span class="label label-success radius">已启用</span></td>\n' +
-							'<td class="td-manage"><a style="text-decoration:none" onClick="member_stop(this,\'10001\')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="member_edit(this,\'\',\'510\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="change_password(\'修改密码\',\'change-password.html\',\'10001\',\'600\',\'270\')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>\n' +
+							'<td class="td-manage"><a style="text-decoration:none" onClick="member_stop(this,\'10001\')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="member_edit(this,\'\',\'510\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="change_password(this,\'修改密码\',\'/member/user-password-edit\',\'10001\',\'600\',\'270\')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>\n' +
 							'</tr>';
 					$("#jilu").append(li);
 				}
@@ -152,22 +152,9 @@ function member_show(obj,w,h){
 			success: function(data){
 				console.log(data);
 				var d=data.data;
-				if(d.gender==1){
-					var sex='男';
-				}else if(d.gender==2){
-					var sex='女';
-				}else{
-					var sex='保密';
-				}
 				var id=d.id;
 				var username=d.username;
-				var telephone=d.telephone;
-				var postAddress=d.postAddress;
-				var address=d.address;
-				var createTime=d.createTime;
-				layer_show(username,'/member/show?id='+id+'&&username='+username+'&&gender='+sex+
-									'&&telephone='+telephone+'&&postAddress='+postAddress+'&&address='+
-									address+'&&createTime='+createTime,w,h);
+				layer_show(username,'/member/show?id='+id,w,h);
 			},
 			error:function(data) {
 				console.log(data.msg);
@@ -242,8 +229,11 @@ function member_edit(obj,w,h){
 	});
 }
 /*密码-修改*/
-function change_password(title,url,id,w,h){
-	layer_show(title,url,w,h);	
+function change_password(obj,title,url,id,w,h){
+	var id=obj.parentNode.parentNode.childNodes[3].innerText;
+	console.log(id);
+	url=url+"?id="+id;
+	layer_show(title,url,w,h);
 }
 /*用户-删除*/
 function member_del(obj){

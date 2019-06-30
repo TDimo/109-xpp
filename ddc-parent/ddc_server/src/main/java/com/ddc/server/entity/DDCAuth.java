@@ -9,7 +9,6 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * <p>
@@ -95,6 +94,7 @@ public class DDCAuth extends Model<DDCAuth> {
      */
     @TableField("del_flag")
     private Integer delFlag;
+
 
     @Override
     protected Serializable pkVal() {

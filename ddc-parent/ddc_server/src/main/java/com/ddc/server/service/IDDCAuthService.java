@@ -15,5 +15,6 @@ import java.util.List;
  */
 public interface IDDCAuthService extends IService<DDCAuth> {
 
+
     List<DDCAuth> selectByRoleId(Long roleId);
 }

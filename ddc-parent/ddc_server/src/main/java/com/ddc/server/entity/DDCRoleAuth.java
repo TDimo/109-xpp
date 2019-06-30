@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
 import lombok.*;
 
 import java.io.Serializable;
@@ -29,7 +30,7 @@ public class DDCRoleAuth extends Model<DDCRoleAuth> {
     /**
      * 用户主键
      */
-    @TableId("id")
+    @TableId(value = "id",type = IdType.AUTO)
     private Long id;
     /**
      * 用户名

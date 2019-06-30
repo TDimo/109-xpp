@@ -25,7 +25,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 前端控制器
@@ -155,6 +157,52 @@ public class RoleController {
     return ResponseHelper.buildResponseModel(list);
   }
 
+
+  @RequestMapping("/getOwnAuths")
+  @ResponseBody
+  public ResponseModel<List<AuthNode>> getOwnAuths(@CurrentUser DDCAdmin admin) throws Exception {
+    DDCRole currentRole = roleService.selectById(admin.getRoleId());
+    List<DDCRoleAuth> roleAuths=roleAuthService.selectList(new EntityWrapper<DDCRoleAuth>().
+                    eq("role_id",currentRole.getId()));
+    Set<Long> authIds=new HashSet<>();
+    if(!CollectionUtils.isEmpty(roleAuths)){
+      for(DDCRoleAuth ra:roleAuths){
+        authIds.add(ra.getAuthId());
+      }
+    }
+    List<AuthNode> list = new ArrayList<>(10);
+    List<DDCAuth> topAuths =
+            authService.selectList(
+                    new EntityWrapper<DDCAuth>()
+                            .gt("auth_level", currentRole.getLevel())
+                            .eq("level", 1)
+                            .eq("del_flag", 0));
+    if (!CollectionUtils.isEmpty(topAuths)) {
+      for (DDCAuth auth : topAuths) {
+        if(!authIds.contains(auth.getId())){
+          continue;
+        }
+        List<DDCAuth> secondAuths =
+                authService.selectList(
+                        new EntityWrapper<DDCAuth>()
+                                .gt("auth_level", currentRole.getLevel())
+                                .eq("level", 2)
+                                .eq("del_flag", 0)
+                                .eq("p_id", auth.getId()));
+        List<AuthNode> nodes2 = new ArrayList<>(10);
+        if (!CollectionUtils.isEmpty(secondAuths)) {
+          for (DDCAuth secondAuth : secondAuths) {
+            if(!authIds.contains(secondAuth.getId())){
+              continue;
+            }
+            nodes2.add(new AuthNode(secondAuth, null));
+          }
+        }
+        list.add(new AuthNode(auth, nodes2));
+      }
+    }
+    return ResponseHelper.buildResponseModel(list);
+  }
   @NoArgsConstructor
   @AllArgsConstructor
   @Data

@@ -23,7 +23,7 @@ public class DDCAdminMapperTest extends BaseTest {
     @Resource
     private DDCRoleAuthMapper roleAuthMapper;
 
-    @Test
+//    @Test
     public void hello() {
 //        authMapper.insert(new DDCAuth("资讯管理","ZXGL",0L,1));
 //        authMapper.insert(new DDCAuth("评论管理","PLGL",0L,1));
@@ -46,7 +46,7 @@ public class DDCAdminMapperTest extends BaseTest {
         authMapper.insert(new DDCAuth("系统日志", "XTGL-XTRZ", 1139936539791441922L, 2));
     }
 
-    @Test
+//    @Test
     public void hello1() {
         List<DDCAuth> auths = authMapper.selectList(new EntityWrapper<>());
         List<DDCRoleAuth> list = new ArrayList<>(auths.size());
@@ -56,11 +56,13 @@ public class DDCAdminMapperTest extends BaseTest {
 
     }
 
-    @Test
+//    @Test
     public void hello2() {
-        DDCAdmin admin = new DDCAdmin("root", "123456", 0,
-                "13812341234", "hello@qq.com", 1L);
+    for (int i = 0; i < 100; i++) {
+        DDCAdmin admin = new DDCAdmin("admin_"+i, "123456", 0,
+                "13812341234", "hello@qq.com", 3L);
         PasswordUtils.entryptPassword(admin);
         ddcAdminMapper.insert(admin);
+    }
     }
 }

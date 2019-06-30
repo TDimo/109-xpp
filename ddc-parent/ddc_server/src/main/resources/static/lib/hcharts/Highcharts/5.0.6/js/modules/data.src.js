@@ -303,7 +303,7 @@
                                 rowCount = 0,
                                 i;
 
-                            // First, find the total number of columns and rows that 
+                            // First, find the count number of columns and rows that
                             // are actually filled with data
                             for (i = 0; i < cellCount; i++) {
                                 cell = cells[i];

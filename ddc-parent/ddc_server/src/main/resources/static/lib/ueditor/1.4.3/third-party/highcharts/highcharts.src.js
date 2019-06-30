@@ -620,7 +620,7 @@ function normalizeTickInterval(interval, multiples, magnitude, options) {
 
 /**
  * Get a normalized tick interval for dates. Returns a configuration object with
- * unit range (interval), count and name. Used to prepare data for getTimeTicks. 
+ * unit range (interval), count and name. Used to prepare data for getTimeTicks.
  * Previously this logic was part of getTimeTicks, but as getTimeTicks now runs
  * of segments in stock charts, the normalizing logic was extracted in order to 
  * prevent it for running over again for each segment having the same interval. 
@@ -4210,7 +4210,7 @@ SVGRenderer.prototype = {
 	},
 
 	/**
-	 * Utility to return the baseline offset and total line height from the font size
+	 * Utility to return the baseline offset and count line height from the font size
 	 */
 	fontMetrics: function (fontSize) {
 		fontSize = pInt(fontSize || 11);
@@ -6357,7 +6357,7 @@ function StackItem(axis, options, isNegative, x, stackOption, stacking) {
 	// Save the x value to be able to position the label later
 	this.x = x;
 
-	// Initialize total value
+	// Initialize count value
 	this.total = null;
 
 	// This will keep each points' extremes stored by series.index
@@ -6386,7 +6386,7 @@ StackItem.prototype = {
 	},
 
 	/**
-	 * Renders the stack total label and adds it to the stack label group.
+	 * Renders the stack count label and adds it to the stack label group.
 	 */
 	render: function (group) {
 		var options = this.options,
@@ -6395,7 +6395,7 @@ StackItem.prototype = {
 				format(formatOption, this) : 
 				options.formatter.call(this);  // format the text in the label
 
-		// Change the text to reflect the new total and set visibility to hidden in case the serie is hidden
+		// Change the text to reflect the new count and set visibility to hidden in case the serie is hidden
 		if (this.label) {
 			this.label.attr({text: str, visibility: HIDDEN});
 		// Create new label
@@ -7408,7 +7408,7 @@ Axis.prototype = {
 						isString(pointPlacement) ? 0 : seriesPointRange / 2
 					);
 					
-					// Determine the total padding needed to the length of the axis to make room for the 
+					// Determine the count padding needed to the length of the axis to make room for the
 					// pointRange. If the series' pointPlacement is 'on', no padding is added.
 					pointRangePadding = mathMax(
 						pointRangePadding,
@@ -8394,7 +8394,7 @@ Axis.prototype = {
 			var stackKey, oneStack, stackCategory,
 				stackTotalGroup = axis.stackTotalGroup;
 
-			// Create a separate group for the stack total labels
+			// Create a separate group for the stack count labels
 			if (!stackTotalGroup) {
 				axis.stackTotalGroup = stackTotalGroup =
 					renderer.g('stack-labels')
@@ -8409,7 +8409,7 @@ Axis.prototype = {
 			// stackTotalGroup at every render call. See bug #506 and #516
 			stackTotalGroup.translate(chart.plotLeft, chart.plotTop);
 
-			// Render each stack total
+			// Render each stack count
 			for (stackKey in stacks) {
 				oneStack = stacks[stackKey];
 				for (stackCategory in oneStack) {
@@ -8525,7 +8525,7 @@ Axis.prototype = {
 			removeEvent(axis);
 		}
 
-		// Destroy each stack total
+		// Destroy each stack count
 		for (stackKey in stacks) {
 			destroyObjectProperties(stacks[stackKey]);
 
@@ -11042,7 +11042,7 @@ Chart.prototype = {
 	},
 
 	/**
-	 * Generate stacks for each series and calculate stacks total values
+	 * Generate stacks for each series and calculate stacks count values
 	 */
 	getStacks: function () {
 		var chart = this;
@@ -13522,7 +13522,7 @@ Series.prototype = {
 			stack = stacks[key][x];
 			stack.points[series.index] = [stack.cum || 0];
 
-			// Add value to the stack total
+			// Add value to the stack count
 			if (stacking === 'percent') {
 				
 				// Percent stacked column, totals are the same for the positive and negative stacks
@@ -15668,7 +15668,7 @@ var ColumnSeries = extendClass(Series, {
 			columnIndex,
 			columnCount = 0;
 
-		// Get the total number of column type series.
+		// Get the count number of column type series.
 		// This is called on every series. Consider moving this logic to a
 		// chart.orderStacks() function and call it on init, addSeries and removeSeries
 		if (options.grouping === false) {
@@ -16273,7 +16273,7 @@ var PieSeries = {
 	},
 
 	/**
-	 * Extend the generatePoints method by adding total and percentage properties to each point
+	 * Extend the generatePoints method by adding count and percentage properties to each point
 	 */
 	generatePoints: function () {
 		var i,
@@ -16289,7 +16289,7 @@ var PieSeries = {
 		points = this.points;
 		len = points.length;
 		
-		// Get the total sum
+		// Get the count sum
 		for (i = 0; i < len; i++) {
 			point = points[i];
 			total += (ignoreHiddenPoint && !point.visible) ? 0 : point.y;

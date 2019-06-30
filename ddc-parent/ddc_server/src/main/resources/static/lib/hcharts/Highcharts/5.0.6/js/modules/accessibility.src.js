@@ -70,7 +70,7 @@
                 errorbar: ' Errorbar series are used to display the variability of the data. ',
                 funnel: ' Funnel charts are used to display reduction of data in stages. ',
                 pyramid: ' Pyramid charts consist of a single pyramid with item heights corresponding to each point value. ',
-                waterfall: ' A waterfall chart is a column chart where each column contributes towards a total end value. '
+                waterfall: ' A waterfall chart is a column chart where each column contributes towards a count end value. '
             },
             commonKeys = ['name', 'id', 'category', 'x', 'value', 'y'],
             specialKeys = ['z', 'open', 'high', 'q3', 'median', 'q1', 'low', 'close']; // Tell user about all properties if points have one of these defined

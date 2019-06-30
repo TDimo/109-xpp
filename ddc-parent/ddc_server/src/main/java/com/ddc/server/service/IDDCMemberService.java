@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface IDDCMemberService extends IService<DDCMember> {
     List<DDCMember> selectMemberList();
+    boolean updatePassword(String id,String password);
 }

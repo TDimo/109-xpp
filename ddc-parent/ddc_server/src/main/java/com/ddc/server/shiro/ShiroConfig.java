@@ -32,13 +32,13 @@ public class ShiroConfig {
         Map<String, String> filterRuleMap = new HashMap<>(2);
         // 访问401和404页面不通过我们的Filter
         //通过http://127.0.0.1:9527/druid/index.html 访问 liugh/liugh
-        // <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
         filterRuleMap.put("/static/**", "anon");
         filterRuleMap.put("/lib/**", "anon");
         filterRuleMap.put("/temp/**", "anon");
         filterRuleMap.put("/favicon.ico", "anon");
         filterRuleMap.put("/logout", "logout");
         filterRuleMap.put("/login", "authc");
+        // <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
         filterRuleMap.put("/**", "authc");
         factoryBean.setFilterChainDefinitionMap(filterRuleMap);
         return factoryBean;

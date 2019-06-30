@@ -25,4 +25,10 @@ public class DDCMemberServiceImpl extends ServiceImpl<DDCMemberMapper, DDCMember
     public List<DDCMember> selectMemberList(){
         return memberMapper.selectAll();
     }
+
+    @Override
+    public boolean updatePassword(String id,String password){
+        memberMapper.updatePassword(Long.parseLong(id),password);
+        return true;
+    }
 }

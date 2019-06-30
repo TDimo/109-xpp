@@ -91,12 +91,23 @@
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">角色ID</label>
-            <div class="layui-input-inline">
-                <input type="text" name="roleId" value="{{ d.roleId || '' }}"  placeholder="请输入角色ID"
-                       autocomplete="off" class="layui-input">
+            <label class="layui-form-label">角色</label>
+            <div class="layui-input-block">
+                <select name="roleId" lay-verify="required">
+                    <option value="">请选择</option>
+
+                    {{#  layui.each(d.roles, function(index, item){ }}
+                    <option value="{{item.id}}"
+                        {{#  if(d.roleId==item.id){ }}
+                            selected
+                          {{#  } }}
+                    >{{item.name}}</option>
+                {{#  }); }}
+            </select>
             </div>
         </div>
+
+
 
         <div class="layui-form-item">
             <label class="layui-form-label">选择性别</label>
@@ -207,13 +218,15 @@
                 id: 'table',
                 elem: '.table-sort'
                 , toolbar: '#toolbarDemo'
-                , height: 'full-220'
+                // , height: 'full-220'
                 , url: '/admin/list' //数据接口
-                , page: true //开启分页
+                , page: {
+                    limit:10
+                } //开启分页
                 , cols: [[ //表头
                     {type: 'checkbox', fixed: 'left'}
                     , {
-                        field: 'id', title: 'ID', width: '15%', sort: true, fixed: 'left', templet: function (d) {
+                        field: 'id', title: 'ID', width: '5%', sort: true, fixed: 'left', templet: function (d) {
                             return d.id;//long 转Stirng
                         }
                     }
@@ -234,11 +247,11 @@
                     }
                     ,
                     {field: 'mobile', title: '手机号', width: '10%'}
-                    , {field: 'email', title: '邮箱', width: '15%'}
+                    , {field: 'email', title: '邮箱', width: '10%'}
                     , {field: 'roleName', title: '角色名称', width: '10%'}
                     , {field: 'remark', title: '备注', width: '10%'}
                     , {
-                        field: 'status', title: '状态', width: '8.5%'
+                        field: 'status', title: '状态', width: '5%'
                         , templet: function (d) {
                             switch (d.status) {
                                 case 1:
@@ -249,7 +262,7 @@
                             }
                         }
                     }
-                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: '13%'}
+                    , { title: '操作', toolbar: '#barDemo', width: '35%'}
 
 
                 ]]
@@ -307,34 +320,48 @@
 
             function addOrUpdate(data) {
                 var getTpl = document.getElementById("demo").innerHTML;
-                laytpl(getTpl).render(data, function (html) {
-                    var index = layer.open({
-                        type: 1,
-                        content: html,
-                        area: ['500px', '600px']
-                    });
-                    form.render();
-                    form.on('submit(update_form_submit)', function (data) {
-                        layer.msg(JSON.stringify(data.field));
-                        $.ajax({
-                            "url": "/admin/updateOrAdd",
-                            "data": JSON.stringify(data.field),
-                            type: "post",
-                            contentType: 'application/json',
-                            dataType: "json",
-                            success: function (res) {
-                                if (res.code === 200) {
-                                    layer.msg("操作成功");
-                                    reload();
-                                    layer.close(index);
-                                } else {
-                                    layer.msg(res.msg);
-                                }
-                            }
-                        })
-                        return false;
-                    });
-                });
+                $.ajax({
+                    "url": "/admin/roles",
+                    type: "post",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    success: function (res) {
+                        if (res.code === 200) {
+                            data.roles=res.data;
+                            laytpl(getTpl).render(data, function (html) {
+                                var index = layer.open({
+                                    type: 1,
+                                    content: html,
+                                    area: ['500px', '600px']
+                                });
+                                form.render();
+                                form.on('submit(update_form_submit)', function (data) {
+                                    layer.msg(JSON.stringify(data.field));
+                                    $.ajax({
+                                        "url": "/admin/updateOrAdd",
+                                        "data": JSON.stringify(data.field),
+                                        type: "post",
+                                        contentType: 'application/json',
+                                        dataType: "json",
+                                        success: function (res) {
+                                            if (res.code === 200) {
+                                                layer.msg("操作成功");
+                                                reload();
+                                                layer.close(index);
+                                            } else {
+                                                layer.msg(res.msg);
+                                            }
+                                        }
+                                    })
+                                    return false;
+                                });
+                            });
+                        } else {
+                            layer.msg(res.msg);
+                        }
+                    }
+                })
+
             }
 
 //监听行工具事件

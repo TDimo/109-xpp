@@ -15,7 +15,8 @@ import java.util.List;
  */
 
 public interface DDCRoleAuthMapper extends BaseMapper<DDCRoleAuth> {
+
+
     @Select("select distinct auth_id from dcc_role_auth where role_id=#{id}")
     List<Long> selectAuthList(@Param("id") Long id);
-
 }

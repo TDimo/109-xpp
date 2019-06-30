@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -24,19 +25,18 @@
 <title>用户查看</title>
 </head>
 <body>
-<%
-    String username=request.getParameter("username");
-	String gender=request.getParameter("gender");
-	String telephone=request.getParameter("telephone");
-	String postAddress=request.getParameter("postAddress");
-	String address=request.getParameter("address");
-	String createTime=request.getParameter("createTime");
-%>
 <div class="cl pd-20" style=" background-color:#5bacb6">
-	<img class="avatar size-XL l" src="/static/h-ui/images/ucnter/avatar-default.jpg">
+	<c:choose>
+		<c:when test="${requestScope.icon==null}">
+			<img class="avatar size-XL l" src="/static/h-ui/images/ucnter/avatar-default.jpg">
+		</c:when>
+		<c:otherwise>
+			<img class="avatar size-XL l" src="${icon}">
+		</c:otherwise>
+	</c:choose>
 	<dl style="margin-left:80px; color:#fff">
 		<dt>
-			<span class="f-18"><%=username %></span>
+			<span class="f-18">${username}</span>
 			<span class="pl-10 f-12">余额：40</span>
 		</dt>
 		<dd class="pt-10 f-12" style="margin-left:0">这家伙很懒，什么也没有留下</dd>
@@ -47,23 +47,23 @@
 		<tbody>
 			<tr>
 				<th class="text-r" width="80">性别：</th>
-				<td><%=gender %></td>
+				<td>${gender}</td>
 			</tr>
 			<tr>
 				<th class="text-r">手机：</th>
-				<td><%=telephone %></td>
+				<td>${telephone}</td>
 			</tr>
 			<tr>
 				<th class="text-r">邮箱：</th>
-				<td><%=postAddress %></td>
+				<td>${postAddress}</td>
 			</tr>
 			<tr>
 				<th class="text-r">地址：</th>
-				<td><%=address %></td>
+				<td>${address}</td>
 			</tr>
 			<tr>
 				<th class="text-r">注册时间：</th>
-				<td><%=createTime %></td>
+				<td>${createTime}</td>
 			</tr>
 			<tr>
 				<th class="text-r">积分：</th>

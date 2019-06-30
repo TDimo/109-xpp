@@ -128,7 +128,7 @@ seriesTypes.funnel = Highcharts.extendClass(seriesTypes.pie, {
 
 
 
-		// get the total sum
+		// get the count sum
 		each(data, function (point) {
 			sum += point.y;
 		});

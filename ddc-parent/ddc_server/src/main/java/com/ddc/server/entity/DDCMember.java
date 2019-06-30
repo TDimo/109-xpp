@@ -158,11 +158,13 @@ public class DDCMember extends Model<DDCMember> {
         this.username=memberName;
     }
 
-    public DDCMember(String memberName,int gender,String telephone,String postAddress,String city,String beuzhu){
+    public DDCMember(String memberName,String password,int gender,String telephone,String postAddress,String uploadfileurl,String city,String beuzhu){
         this.username=memberName;
+        this.password=password;
         this.gender=gender;
         this.telephone=telephone;
         this.postAddress=postAddress;
+        this.icon=uploadfileurl;
         this.city=city;
         this.address=beuzhu;
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

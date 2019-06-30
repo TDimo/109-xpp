@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE HTML>
 <html>
@@ -28,6 +29,8 @@
     <link rel="stylesheet" type="text/css" href="/lib/Hui-iconfont/1.0.8/iconfont.css"/>
     <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/skin/default/skin.css" id="skin"/>
     <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/style.css"/>
+    <link rel="stylesheet" href="/lib/layui/css/layui.css" media="all">
+
     <!--[if IE 6]>
     <script type="text/javascript" src="/lib/DD_belatedPNG_0.0.8a-min.js"></script>
     <script>DD_belatedPNG.fix('*');</script>
@@ -90,94 +93,94 @@
     </div>
 </header>
 <aside class="Hui-aside">
-    <div class="menu_dropdown bk_2">
-        <dl id="menu-article">
-            <dt><i class="Hui-iconfont">&#xe616;</i> 资讯管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
-                <ul>
-                    <li><a data-href="/page/article-list" data-title="资讯管理" href="javascript:void(0)">资讯管理</a></li>
-                    <li><a data-href="/page/picture-list" data-title="图片管理" href="javascript:void(0)">图片管理</a></li>
-                    <li><a data-href="/page/article_column" data-title="栏目管理" href="javascript:void(0)">栏目管理</a></li>
-                    <li><a data-href="/page/article-category" data-title="分类管理" href="javascript:void(0)">分类管理</a></li>
+    <div class="menu_dropdown bk_2" id="menu_c">
+        <c:forEach  items="${list}" var="item">
+            <dl id="menu-${item.auth.id}">
+                <dt><i class="Hui-iconfont">&#xe616;</i> ${item.auth.name}<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+                </dt>
+                <c:if test="${!empty item.nodes}">
+                    <dd>
+                        <ul>
+                            <c:forEach items="${item.nodes}" var="item2">
+                                <c:if test="${empty item2.auth.menuUrl}">
+                                    <li><a data-href="/page/404" data-title="${item2.auth.name}" href="javascript:void(0)">${item2.auth.name}</a></li>
 
-                </ul>
-            </dd>
-        </dl>
-        <!--<dl id="menu-picture">-->
-        <!--<dt><i class="Hui-iconfont">&#xe613;</i> 图片管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>-->
-        <!--<dd>-->
-        <!--<ul>-->
-        <!--</ul>-->
-        <!--</dd>-->
-        <!--</dl>-->
-        <!--<dl id="menu-product">-->
-        <!--<dt><i class="Hui-iconfont">&#xe620;</i> 产品管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>-->
-        <!--<dd>-->
-        <!--<ul>-->
-        <!--<li><a data-href="product-brand.html" data-title="品牌管理" href="javascript:void(0)">品牌管理</a></li>-->
-        <!--<li><a data-href="product-list.html" data-title="产品管理" href="javascript:void(0)">产品管理</a></li>-->
-        <!--</ul>-->
-        <!--</dd>-->
-        <!--</dl>-->
-        <dl id="menu-comments">
-            <dt><i class="Hui-iconfont">&#xe622;</i> 评论管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
-                <ul>
-                    <!--<li><a data-href="http://h-ui.duoshuo.com/admin/" data-title="评论列表" href="javascript:;">评论列表</a>-->
-                    </li>
-                    <li><a data-href="/page/suggestings" data-title="意见反馈" href="javascript:void(0)">意见反馈</a></li>
-                </ul>
-            </dd>
-        </dl>
-        <dl id="menu-member">
-            <dt><i class="Hui-iconfont">&#xe60d;</i> 会员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
-                <ul>
-                    <li><a data-href="/page/member-list" data-title="会员列表" href="javascript:;">会员列表</a></li>
-                    <!--<li><a data-href="member-del.html" data-title="删除的会员" href="javascript:;">删除的会员</a></li>-->
-                    <!--<li><a data-href="member-level.html" data-title="等级管理" href="javascript:;">等级管理</a></li>-->
-                    <!--<li><a data-href="member-scoreoperation.html" data-title="积分管理" href="javascript:;">积分管理</a></li>-->
-                    <li><a data-href="/page/member-record-browse" data-title="浏览记录" href="javascript:void(0)">浏览记录</a>
-                    </li>
-                    <!--<li><a data-href="member-record-download.html" data-title="下载记录" href="javascript:void(0)">下载记录</a>-->
-                    <!--</li>-->
-                    <!--<li><a data-href="member-record-share.html" data-title="分享记录" href="javascript:void(0)">分享记录</a>-->
-                    <!--</li>-->
-                </ul>
-            </dd>
-        </dl>
-        <dl id="menu-admin">
-            <dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
-                <ul>
-                    <li><a data-href="/page/role" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>
-                    <li><a data-href="/page/auth" data-title="权限管理" href="javascript:void(0)">权限管理</a></li>
-                    <li><a data-href="/page/admin" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
-                </ul>
-            </dd>
-        </dl>
-        <dl id="menu-tongji">
-            <dt><i class="Hui-iconfont">&#xe61a;</i> 数据统计<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
-                <ul>
-                    <li><a data-href="charts-1.html" data-title="折线图" href="javascript:void(0)">活跃用户统计</a></li>
-                    <li><a data-href="charts-1.html" data-title="时间轴折线图" href="javascript:void(0)">浏览数据统计</a></li>
-                    <!--<li><a data-href="charts-3.html" data-title="区域图" href="javascript:void(0)">分享数据统计</a></li>-->
-                    <!--<li><a data-href="charts-3.html" data-title="区域图" href="javascript:void(0)">评论数据统计</a></li>-->
-                </ul>
-            </dd>
-        </dl>
-        <dl id="menu-system">
-            <dt><i class="Hui-iconfont">&#xe62e;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
-                <ul>
-                    <!--<li><a data-href="system-base.html" data-title="系统设置" href="javascript:void(0)">系统设置</a></li>-->
-                    <!--<li><a data-href="system-data.html" data-title="数据字典" href="javascript:void(0)">数据字典</a></li>-->
-                    <!--<li><a data-href="system-shielding.html" data-title="屏蔽词" href="javascript:void(0)">屏蔽词</a></li>-->
-                    <li><a data-href="system-log.html" data-title="系统日志" href="javascript:void(0)">系统日志</a></li>
-                </ul>
-            </dd>
-        </dl>
+                                </c:if>
+                                <c:if test="${!empty item2.auth.menuUrl}">
+                                    <li><a data-href="${item2.auth.menuUrl}" data-title="${item2.auth.name}" href="javascript:void(0)">${item2.auth.name}</a></li>
+
+                                </c:if>
+                            </c:forEach>
+
+
+                        </ul>
+                    </dd>
+
+                </c:if>
+
+            </dl>
+        </c:forEach>
+
+
+        <%--        <dl id="menu-comments">--%>
+        <%--            <dt><i class="Hui-iconfont">&#xe622;</i> 评论管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>--%>
+        <%--            <dd>--%>
+        <%--                <ul>--%>
+        <%--                    <!--<li><a data-href="http://h-ui.duoshuo.com/admin/" data-title="评论列表" href="javascript:;">评论列表</a>-->--%>
+        <%--                    </li>--%>
+        <%--                    <li><a data-href="/page/suggestings" data-title="意见反馈" href="javascript:void(0)">意见反馈</a></li>--%>
+        <%--                </ul>--%>
+        <%--            </dd>--%>
+        <%--        </dl>--%>
+        <%--        <dl id="menu-member">--%>
+        <%--            <dt><i class="Hui-iconfont">&#xe60d;</i> 会员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>--%>
+        <%--            <dd>--%>
+        <%--                <ul>--%>
+        <%--                    <li><a data-href="member-list.html" data-title="会员列表" href="javascript:;">会员列表</a></li>--%>
+        <%--                    <!--<li><a data-href="member-del.html" data-title="删除的会员" href="javascript:;">删除的会员</a></li>-->--%>
+        <%--                    <!--<li><a data-href="member-level.html" data-title="等级管理" href="javascript:;">等级管理</a></li>-->--%>
+        <%--                    <!--<li><a data-href="member-scoreoperation.html" data-title="积分管理" href="javascript:;">积分管理</a></li>-->--%>
+        <%--                    <li><a data-href="member-record-browse.html" data-title="浏览记录" href="javascript:void(0)">浏览记录</a>--%>
+        <%--                    </li>--%>
+        <%--                    <!--<li><a data-href="member-record-download.html" data-title="下载记录" href="javascript:void(0)">下载记录</a>-->--%>
+        <%--                    <!--</li>-->--%>
+        <%--                    <!--<li><a data-href="member-record-share.html" data-title="分享记录" href="javascript:void(0)">分享记录</a>-->--%>
+        <%--                    <!--</li>-->--%>
+        <%--                </ul>--%>
+        <%--            </dd>--%>
+        <%--        </dl>--%>
+        <%--        <dl id="menu-admin">--%>
+        <%--            <dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>--%>
+        <%--            <dd>--%>
+        <%--                <ul>--%>
+        <%--                    <li><a data-href="/page/role" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>--%>
+        <%--                    <li><a data-href="/page/auth" data-title="权限管理" href="javascript:void(0)">权限管理</a></li>--%>
+        <%--                    <li><a data-href="/page/admin" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>--%>
+        <%--                </ul>--%>
+        <%--            </dd>--%>
+        <%--        </dl>--%>
+        <%--        <dl id="menu-tongji">--%>
+        <%--            <dt><i class="Hui-iconfont">&#xe61a;</i> 数据统计<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>--%>
+        <%--            <dd>--%>
+        <%--                <ul>--%>
+        <%--                    <li><a data-href="charts-1.html" data-title="折线图" href="javascript:void(0)">活跃用户统计</a></li>--%>
+        <%--                    <li><a data-href="charts-1.html" data-title="时间轴折线图" href="javascript:void(0)">浏览数据统计</a></li>--%>
+        <%--                    <!--<li><a data-href="charts-3.html" data-title="区域图" href="javascript:void(0)">分享数据统计</a></li>-->--%>
+        <%--                    <!--<li><a data-href="charts-3.html" data-title="区域图" href="javascript:void(0)">评论数据统计</a></li>-->--%>
+        <%--                </ul>--%>
+        <%--            </dd>--%>
+        <%--        </dl>--%>
+        <%--        <dl id="menu-system">--%>
+        <%--            <dt><i class="Hui-iconfont">&#xe62e;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>--%>
+        <%--            <dd>--%>
+        <%--                <ul>--%>
+        <%--                    <!--<li><a data-href="system-base.html" data-title="系统设置" href="javascript:void(0)">系统设置</a></li>-->--%>
+        <%--                    <!--<li><a data-href="system-data.html" data-title="数据字典" href="javascript:void(0)">数据字典</a></li>-->--%>
+        <%--                    <!--<li><a data-href="system-shielding.html" data-title="屏蔽词" href="javascript:void(0)">屏蔽词</a></li>-->--%>
+        <%--                    <li><a data-href="system-log.html" data-title="系统日志" href="javascript:void(0)">系统日志</a></li>--%>
+        <%--                </ul>--%>
+        <%--            </dd>--%>
+        <%--        </dl>--%>
     </div>
 </aside>
 <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a>
@@ -215,11 +218,62 @@
 <script type="text/javascript" src="/lib/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="/static/h-ui/js/H-ui.min.js"></script>
 <script type="text/javascript" src="/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/lib/layui/layui.all.js"></script>
 
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="/lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
+<script id="menu" type="text/html">
+    {{#  layui.each(d.list, function(index, item){ }}
+    <dl id="menu-{{item.auth.id}}">
+        <dt><i class="Hui-iconfont">&#xe616;</i> {{item.auth.name}}<i
+                class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+        {{# if(item.nodes.length !== 0){ }}
+
+        <dd>
+            <ul>
+                {{# layui.each(item.nodes, function(index2, item2){ }}
+                <li><a data-href="{{item2.auth.menuUrl}}" data-title="{{item2.auth.name}}" href="javascript:void(0)">{{item2.auth.name}}</a>
+                </li>
+
+                {{# }); }}
+            </ul>
+        </dd>
+        {{# } }}
+
+    </dl>
+    {{#  }); }}
+
+</script>
+
 <script type="text/javascript">
     $(function () {
+        // layui.use(['table', 'laytpl', 'element', 'form'], function () {
+        //     var table = layui.table;
+        //     var laytpl = layui.laytpl;
+        //     var element = layui.element;
+        //     var form = layui.form;
+        //     $.ajax({
+        //         "url": "/role/getOwnAuths",
+        //         // "data": JSON.stringify(data.field),
+        //         type: "post",
+        //         contentType: 'application/json',
+        //         dataType: "json",
+        //         success: function (res) {
+        //             if (res.code === 200) {
+        //                 var data={
+        //                     "list":res.data
+        //                 }
+        //                 var getTpl = menu.innerHTML
+        //                     ,view = document.getElementById('menu_c');
+        //                 laytpl(getTpl).render(data, function(html){
+        //                     view.innerHTML = html;
+        //                 });
+        //             } else {
+        //                 layer.msg(res.msg);
+        //             }
+        //         }
+        //     })
+        // });
         /*$("#min_title_list li").contextMenu('Huiadminmenu', {
             bindings: {
                 'closethis': function(t) {

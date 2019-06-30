@@ -46,13 +46,18 @@ public class MyRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        System.out.println("权限校验");
         if (roleService == null) {
             this.roleService = SpringContextBeanService.getBean(IDDCRoleService.class);
         }
         if (authService == null) {
             this.authService = SpringContextBeanService.getBean(IDDCAuthService.class);
         }
+        if (adminService == null) {
+            this.adminService = SpringContextBeanService.getBean(IDDCAdminService.class);
+        }
 
+//        String userNo = JWTUtil.getUserNo(principals.toString());
         DDCAdmin admin = adminService.selectByName(((DDCAdmin)principals.getPrimaryPrincipal()).getName());
 
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
@@ -106,7 +111,7 @@ public class MyRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        System.out.println("MyShiroRealm.doGetAuthenticationInfo()");
+        System.out.println("登录校验");
         if(adminService==null){
             adminService=SpringContextBeanService.getBean(IDDCAdminService.class);
         }
@@ -119,6 +124,8 @@ public class MyRealm extends AuthorizingRealm {
         if (admin == null) {
             return null;
         }
+
+
         // 加密方式;
         // 交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配
         String password = admin.getPassword();
@@ -127,7 +134,8 @@ public class MyRealm extends AuthorizingRealm {
         // 当前域的名称（MyShiroRealm）
         String realmName = getName();
         // 认证信息
-        return new SimpleAuthenticationInfo(admin, password, salt, realmName);  //加密之后返回
+
+        return new SimpleAuthenticationInfo(admin, password, salt, realmName);
     }
 
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
 import lombok.*;
 
 import java.io.Serializable;
@@ -29,7 +30,7 @@ public class DDCAdmin extends Model<DDCAdmin> {
     /**
      * 用户主键
      */
-    @TableId("id")
+    @TableId(value = "id",type = IdType.AUTO)
     private Long id;
     /**
      * 用户名
@@ -123,8 +124,9 @@ public class DDCAdmin extends Model<DDCAdmin> {
         this.remark = remark;
         this.createTime=System.currentTimeMillis();
         this.updateTime=System.currentTimeMillis();
-        this.createBy=0L;
-        this.updateBy=0L;
+        this.createBy=1L;
+        this.updateBy=1L;
+        this.updateBy=1L;
         this.delFlag=0;
         this.status=0;
     }

@@ -52,7 +52,7 @@ public class FileManager {
 		}
 		
 		state.putInfo( "start", index );
-		state.putInfo( "total", list.size() );
+		state.putInfo( "count", list.size() );
 		
 		return state;
 		

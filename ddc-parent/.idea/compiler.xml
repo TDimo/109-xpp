@@ -9,7 +9,7 @@
         <module name="ddc-server" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="8">
       <module name="ddc-parent" target="1.8" />
       <module name="ddc-server" target="1.8" />
     </bytecodeTargetLevel>

@@ -91,22 +91,22 @@
         <div class="layui-form-item">
             <label class="layui-form-label">上级权限</label>
             <div class="layui-input-block">
-                <select name="pId" lay-filter="aihao">
+                <select name="pId" lay-filter="pId_select">
                     <option value="0">无</option>
                     {{# layui.each(d.data, function(index, item){ }}
                     <option value="{{item.id}}" level="{{item.level}}"
                             {{# if(d.pId===item.id){ }}
                             selected
                             {{# } }}
-                            {{# if(d.level===1){ }}
-                            disabled
-                            {{# } }}
-                            {{# if(d.level===2&&item.level===2){ }}
-                            disabled
-                            {{# } }}
-                            {{# if(d.level===3&&item.level===1){ }}
-                            disabled
-                            {{# } }}
+<%--                            {{# if(d.level===1){ }}--%>
+<%--                            disabled--%>
+<%--                            {{# } }}--%>
+<%--                            {{# if(d.level===2&&item.level===2){ }}--%>
+<%--                            disabled--%>
+<%--                            {{# } }}--%>
+<%--                            {{# if(d.level===3&&item.level===1){ }}--%>
+<%--                            disabled--%>
+<%--                            {{# } }}--%>
                     >{{item.name}}
                     </option>
                     {{# }); }}
@@ -118,19 +118,19 @@
             <div class="layui-input-block">
                 <%--            <script type="text/html" template>--%>
 
-                <input type="radio" name="level" value="1" title="模块"
+                <input type="radio" name="level" value="1" lay-filter="radio_level" title="模块"
                        {{# if(d.level===1){ }}
                        checked
                        {{# } }}
                 />
 
-                <input type="radio" name="level" value="2" title="页面"
+                <input type="radio" name="level" value="2" lay-filter="radio_level" title="页面"
                        {{# if(d.level===2){ }}
                        checked
                        {{# } }}
                 />
 
-                <input type="radio" name="level" value="3" title="操作"
+                <input type="radio" name="level" value="3" lay-filter="radio_level" title="操作"
                        {{# if(d.level===3){ }}
                        checked
                        {{# } }}
@@ -185,7 +185,7 @@
 <%--<script type="text/javascript" src="/lib/laypage/1.2/laypage.js"></script>--%>
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">批量删除</button>
+<%--        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">批量删除</button>--%>
         <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
 
     </div>
@@ -196,8 +196,13 @@
 </script>
 <script type="text/javascript">
     $(function () {
-        layui.use(['table', 'laytpl', 'element', 'form'], function () {
+        layui.config({
+            base: '/lib/layui/lay/modules/'
+        }).extend({
+            treetable: 'treetable-lay/treetable'
+        }).use(['table', 'laytpl', 'element', 'form','treetable'], function () {
             var table = layui.table;
+            var treetable = layui.treetable;
             var laytpl = layui.laytpl;
             var element = layui.element;
             var form = layui.form;
@@ -206,7 +211,7 @@
             })
 
             function reload() {
-                table.reload('table', {
+                treetable.reload('table', {
                     where: { //请求参数（注意：这里面的参数可任意定义，并非下面固定的格式）
                         start: $("#start").val(),
                         end: $("#end").val(),
@@ -217,25 +222,29 @@
 
 
             //第一个实例
-            table.render({
+            treetable.render({
                 id: 'table',
+                treeColIndex: 1,//树形图标显示在第几列
+                treeSpid: 0,//最上级的父级id
+                treeIdName: 'name',//id字段的名称
+                treePidName: 'pId',//pid字段的名称
+                treeDefaultClose: false,//是否默认折叠
+                treeLinkage: true,//父级展开时是否自动展开所有子级
                 elem: '.table-sort'
                 , toolbar: '#toolbarDemo'
                 , height: 'full-220'
                 , url: '/auth/list' //数据接口
-                , page: true //开启分页
+                , page: false //开启分页
                 , cols: [[ //表头
-                    {type: 'checkbox', fixed: 'left'}
-                    , {
-                        field: 'id', title: 'ID', width: '15%', sort: true, fixed: 'left', templet: function (d) {
-                            return d.id;//long 转Stirng
-                        }
-                    }
+                    // {type: 'checkbox', fixed: 'left'}
 
+                     {field: 'id', title: 'ID', width: '5%'}
+                     ,{field: 'name', title: '权限名称', width: '20%'}
                     , {field: 'pName', title: '上级权限', width: '15%'}
-                    , {field: 'menuUrl', title: '跳转地址', width: '15%'}
-                    , {field: 'name', title: '权限名称', width: '10%'}
                     , {field: 'flag', title: '权限标示', width: '15%'}
+
+                    , {field: 'menuUrl', title: '跳转地址', width: '15%'}
+
                     , {
                         field: 'level', title: '级别', width: '20%'
                         , templet: function (d) {
@@ -262,7 +271,7 @@
                             }
                         }
                     }
-                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: '25%'}
+                    , { title: '操作', toolbar: '#barDemo', width: '25%'}
 
 
                 ]]
@@ -335,21 +344,46 @@
                                     area: ['500px', '600px']
                                 });
 
-                                if (data != null) {
-                                    switch (data.level) {
-                                        case 1:
-                                            $("select[name='level'] option[level='1']").attr("disabled", true);
-                                            $("select[name='level'] option[level='2']").attr("disabled", true);
-                                            break;
-                                        case 2:
-                                            // $("select[name='level'] option[level='1']").attr("disabled",true);
-                                            $("select[name='level'] option[level='2']").attr("disabled", true);
-                                            break;
-                                        case 3:
-                                            break;
-                                    }
-                                }
+                                // if (data != null) {
+                                //     switch (data.level) {
+                                //         case 1:
+                                //             $("select[name='pId'] option[level='1']").attr("disabled", true);
+                                //             $("select[name='pId'] option[level='2']").attr("disabled", true);
+                                //             break;
+                                //         case 2:
+                                //             $("select[name='pId'] option[level='1']").attr("disabled",false);
+                                //             $("select[name='pId'] option[level='2']").attr("disabled", true);
+                                //             break;
+                                //         case 3:
+                                //             $("select[name='pId'] option[level='1']").attr("disabled", true);
+                                //             $("select[name='pId'] option[level='2']").attr("disabled", false);
+                                //
+                                //             break;
+                                //     }
+                                // }
                                 form.render();
+                                form.on('radio(radio_level)', function(data){
+                                    console.log(data.elem); //得到radio原始DOM对象
+                                    console.log(data.value); //被点击的radio的value值
+                                    console.log($("select[name='pId']").html()); //被点击的radio的value值
+
+                                    // switch (data.value) {
+                                    //     case 1:
+                                    //         $("select[name='pId'] option[level='1']").attr("disabled", true);
+                                    //         $("select[name='pId'] option[level='2']").attr("disabled", true);
+                                    //         break;
+                                    //     case 2:
+                                    //         $("select[name='pId'] option[level='1']").attr("disabled",false);
+                                    //         $("select[name='pId'] option[level='2']").attr("disabled", true);
+                                    //         break;
+                                    //     case 3:
+                                    //         $("select[name='pId'] option[level='1']").attr("disabled", true);
+                                    //         $("select[name='pId'] option[level='2']").attr("disabled", false);
+                                    //
+                                    // }
+                                    // form.render('select');
+
+                                });
                                 form.on('submit(update_form_submit)', function (data) {
                                     layer.msg(JSON.stringify(data.field));
                                     $.ajax({
