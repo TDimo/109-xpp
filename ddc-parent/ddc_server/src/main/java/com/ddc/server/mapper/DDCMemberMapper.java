@@ -24,4 +24,7 @@ public interface DDCMemberMapper extends BaseMapper<DDCMember> {
 
     @Update("update user set password=#{password} where id=#{id}")
     void updatePassword(@Param("id") Long id, @Param("password") String password);
+
+    @Update("update user set statu=0 where id=#{id}")
+    void updateStatuById(@Param("id") Long id);
 }

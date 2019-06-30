@@ -6,9 +6,12 @@ import com.ddc.server.config.web.http.ResponseModel;
 import com.ddc.server.entity.DDCMember;
 import com.ddc.server.mapper.DDCMemberMapper;
 import com.ddc.server.service.IDDCMemberService;
+import com.ddc.server.shiro.PasswordUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +27,9 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.ddc.server.shiro.PasswordUtils.ALGORITHM_NAME;
+import static com.ddc.server.shiro.PasswordUtils.HASH_ITERATIONS;
 
 @RequestMapping("/member")
 @Controller
@@ -66,7 +72,10 @@ public class MemberController {
     @RequestMapping("/password_edit")
     public ModelAndView passwordEdit(Model model, @RequestParam(value = "user_id",required = false) String id,
                                      @RequestParam(value = "teacher_new_password",required = false) String teacher_new_password) throws Exception {
-        memberService.updatePassword(id,teacher_new_password);
+        String salt = "_"+id;
+        String temPassword = teacher_new_password;
+        Object md5Password = new SimpleHash(ALGORITHM_NAME, temPassword, ByteSource.Util.bytes(salt), HASH_ITERATIONS);
+        memberService.updatePassword(id,md5Password.toString());
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.setViewName("success");
         return modelAndView;
@@ -79,7 +88,7 @@ public class MemberController {
                           @RequestParam(value = "email",required = false) String email, @RequestParam(value = "uploadfileurl",required = false) String uploadfileurl,
                           @RequestParam(value = "city",required = false) String city,@RequestParam(value = "beizhu",required = false) String beizhu,Model model) throws Exception {
         DDCMember member = new DDCMember(username, password, sex, mobile, email,uploadfileurl,city,beizhu);
-        //PasswordUtils.entryptPassword(member);
+        PasswordUtils.entryptPassword(member);
         memberMapper.insert(member);
     }
 
@@ -101,6 +110,13 @@ public class MemberController {
     @ResponseBody
     public ResponseModel<String> memberDelete(HttpServletRequest request,HttpServletResponse response, @RequestParam(value = "id",required = false) Long id){
         memberMapper.deleteById(id);
+        return ResponseHelper.buildResponseModel("ok");
+    }
+
+    @RequestMapping("/stop")
+    @ResponseBody
+    public ResponseModel<String> memberStop(HttpServletRequest request,HttpServletResponse response, @RequestParam(value = "id",required = false) Long id){
+        memberMapper.updateStatuById(id);
         return ResponseHelper.buildResponseModel("ok");
     }
 

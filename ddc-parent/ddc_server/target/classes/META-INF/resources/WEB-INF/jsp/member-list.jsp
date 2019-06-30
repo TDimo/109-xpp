@@ -82,7 +82,7 @@
 					}else{
 						var sex='保密';
 					}
-					var li='<tr class="text-c">\n' +
+					var li_1='<tr class="text-c">\n' +
 							'<td><input type="checkbox" value="1" name=""></td>\n' +
 							'<td>'+d.id+'</td>\n' +
 							'<td><u style="cursor:pointer" class="text-primary" onclick="member_show(this,\'360\',\'400\')">'+d.username+'</u></td>\n' +
@@ -91,10 +91,15 @@
 							'<td>'+d.telephone+'</td>\n' +
 							'<td>'+d.postAddress+'</td>\n' +
 							'<td class="text-l">'+d.address+'</td>\n' +
-							'<td>'+d.createTime+'</td>\n' +
-							'<td class="td-status"><span class="label label-success radius">已启用</span></td>\n' +
-							'<td class="td-manage"><a style="text-decoration:none" onClick="member_stop(this,\'10001\')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="member_edit(this,\'\',\'510\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="change_password(this,\'修改密码\',\'/member/user-password-edit\',\'10001\',\'600\',\'270\')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>\n' +
+							'<td>'+d.createTime+'</td>\n';
+					if (d.statu==1){
+						var sta='<td class="td-status"><span class="label label-success radius">已启用</span></td>\n';
+					} else {
+						var sta='<td class="td-status"><span class="label label-warning radius">已停用</span></td>\n';
+					}
+					var li_2='<td class="td-manage"><a style="text-decoration:none" onClick="member_stop(this)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="member_edit(this,\'\',\'510\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="change_password(this,\'修改密码\',\'/member/user-password-edit\',\'10001\',\'600\',\'270\')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>\n' +
 							'</tr>';
+					li=li_1+sta+li_2;
 					$("#jilu").append(li);
 				}
 			},
@@ -162,15 +167,17 @@ function member_show(obj,w,h){
 		});
 }
 /*用户-停用*/
-function member_stop(obj,id){
+function member_stop(obj){
+	var id=obj.parentNode.parentNode.childNodes[3].innerText;
+	console.log(id);
 	layer.confirm('确认要停用吗？',function(index){
 		$.ajax({
 			type: 'POST',
-			url: '',
+			url: '/member/stop?id='+id,
 			dataType: 'json',
 			success: function(data){
 				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
-				$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
+				$(obj).parents("tr").find(".td-status").html('<span class="label label-warning radius">已停用</span>');
 				$(obj).remove();
 				layer.msg('已停用!',{icon: 5,time:1000});
 			},
@@ -273,18 +280,24 @@ function member_search() {
 				}else{
 					var sex='保密';
 				}
-				var li='<tr class="text-c">\n' +
+				var li_1='<tr class="text-c">\n' +
 						'<td><input type="checkbox" value="1" name=""></td>\n' +
 						'<td>'+d.id+'</td>\n' +
-						'<td><u style="cursor:pointer" class="text-primary" onclick="member_show(\'张三\',\'member-show.html\',\'10001\',\'360\',\'400\')">'+d.username+'</u></td>\n' +
+						'<td><u style="cursor:pointer" class="text-primary" onclick="member_show(this,\'360\',\'400\')">'+d.username+'</u></td>\n' +
+						// '<td><u style="cursor:pointer" class="text-primary" onclick="member_show(\'张三\',\'/member/show\',\'10001\',\'360\',\'400\')">'+d.username+'</u></td>\n' +
 						'<td>'+sex+'</td>\n' +
 						'<td>'+d.telephone+'</td>\n' +
 						'<td>'+d.postAddress+'</td>\n' +
 						'<td class="text-l">'+d.address+'</td>\n' +
-						'<td>'+d.createTime+'</td>\n' +
-						'<td class="td-status"><span class="label label-success radius">已启用</span></td>\n' +
-						'<td class="td-manage"><a style="text-decoration:none" onClick="member_stop(this,\'10001\')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="member_edit(\'编辑\',\'member-add.html\',\'4\',\'\',\'510\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="change_password(\'修改密码\',\'change-password.html\',\'10001\',\'600\',\'270\')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
+						'<td>'+d.createTime+'</td>\n';
+				if (d.statu==1){
+					var sta='<td class="td-status"><span class="label label-success radius">已启用</span></td>\n';
+				} else {
+					var sta='<td class="td-status"><span class="label label-warning radius">已停用</span></td>\n';
+				}
+				var li_2='<td class="td-manage"><a style="text-decoration:none" onClick="member_stop(this,\'10001\')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="member_edit(this,\'\',\'510\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="change_password(this,\'修改密码\',\'/member/user-password-edit\',\'10001\',\'600\',\'270\')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>\n' +
 						'</tr>';
+				li=li_1+sta+li_2;
 				$('#jilu').empty();
 				$("#jilu").append(li);
 			}
